@@ -1,0 +1,94 @@
+﻿@using Psychology.ViewModels
+@model LecturerUpdateCriteriaViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Редактирование критерия";
+}
+
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Редактирование критерия</h2>
+            </div>
+        </header>
+        <div><b>Наименование</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Criteria.Name" class="form-control" style="resize:vertical" maxlength="100"  rows="2" placeholder="Введите вопрос..." required></textarea>
+        </div>
+        <footer style="margin-top: 20px">
+            <div style="width: 120px;"><b>Вопрос</b></div>
+            <div><b>Ответ</b></div>
+        </footer>
+
+        @for (int i = 0; i < Model.Criteria.ListNumQuestion.Count; i++)
+        {
+            <footer style="margin-bottom: 20px;">
+                <div class="select">
+                    <select asp-for="Criteria.ListNumQuestion[i]" class="form-control" style="width: 100px;">
+                        @for (int j = 1; j <= Model.Size; j++)
+                        {
+                            if (Model.Criteria.ListNumQuestion[i] == j)
+                            {
+                                <option selected="selected" value="@j">@j</option>
+                            }
+                            else
+                            {
+                                <option value="@j">@j</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="select">
+                    <select asp-for="Criteria.ListNumAnswer[i]" class="form-control" style="width: 100px; margin-left: 20px">
+                        @for (int j = 1; j <= Model.Scale; j++)
+                        {
+                            if (Model.Criteria.ListNumAnswer[i] == j)
+                            {
+                                <option selected="selected" value="@j">@j</option>
+                            }
+                            else
+                            {
+                                <option value="@j">@j</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="actions">
+                    <input class="button" asp-route-Index="@i" asp-action="DeleteParameter" style="margin-left: 20px" type="submit" value="Удалить">
+                </div>
+            </footer>
+        }
+
+        <div style="margin-top:20px; color:darkred"><b>Добавление новой записи</b></div>
+        <footer style="margin-bottom: 20px;">
+            <div class="select">
+                <select asp-for="NumQuestion" class="form-control" style="width: 100px;">
+                    @for (int j = 1; j <= Model.Size; j++)
+                    {
+                        <option value="@j">@j</option>
+                    }
+                </select>
+            </div>
+            <div class="select">
+                <select asp-for="NumAnswer" class="form-control" style="width: 100px; margin-left: 20px">
+                    @for (int j = 1; j <= Model.Scale; j++)
+                    {
+                        <option value="@j">@j</option>
+                    }
+                </select>
+            </div>
+            <div class="actions">
+                <input class="button" asp-action="AddParameter" style="margin-left: 20px" type="submit" value="Добавить">
+            </div>
+        </footer>
+        <div class="actions">
+            <input class="button" asp-action="UpdateCriteria"  style="margin-top: 40px" type="submit" value="Сохранить изменения">
+        </div>
+        <input type="hidden" asp-for="Criteria.Id" value="@Model.Criteria.Id">
+        <input type="hidden" asp-for="Criteria.TestId" value="@Model.Criteria.TestId">
+        <input type="hidden" asp-for="Size" value="@Model.Size">
+        <input type="hidden" asp-for="Scale" value="@Model.Scale">
+    </article>
+</form>

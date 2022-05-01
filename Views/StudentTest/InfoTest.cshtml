@@ -1,0 +1,41 @@
+﻿@using Psychology.ViewModels
+@model StudentTestViewModel
+
+@{
+    Layout = "_Student";
+    ViewData["Title"] = "Информация о тесте";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Информация о тесте</h2>
+            </div>
+        </header>
+
+        <div contenteditable="true" style="pointer-events:none">
+            <p>
+                <b>Наименование</b><br />
+                @Model.Test.Name
+            </p>
+            <p>
+                <b>Описание</b><br />
+                @Model.Test.Description
+            </p>
+            <p>
+                <b>Вопросов в тесте</b><br />
+                @Model.Test.Size
+            </p>
+            <p>
+                <b>Инструкция к прохождению</b><br />
+                @Model.Test.Instruction
+            </p>
+        </div>
+        <div class="actions">
+            <input class="button" style="margin-top: 20px" type="submit" value="Начать прохождение">
+        </div>
+        <input type="hidden" asp-for="Test.Id" value="@Model.Test.Id">
+        <input type="hidden" asp-for="Test.Size" value="@Model.Test.Size">
+        <input type="hidden" asp-for="Test.Mix" value="@Model.Test.Mix">
+    </article>
+</form>

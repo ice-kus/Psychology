@@ -1,0 +1,87 @@
+﻿@using Psychology.ViewModels
+@model LecturerTestViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "База тестов";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>База тестов</h2>
+            </div>
+            <div class="meta">
+                <a asp-action="AddTest">Добавить тест</a>
+            </div>
+        </header>
+        <div><b>Сортировка</b></div>
+        <footer>
+            <select id="sortdate" class="form-control" style="width: 30%;" onchange="change();">
+                @if (Model.SortDate)
+                {
+                    <option selected="selected" value="@true">По дате добавления</option>
+                    <option value="@false">По наименованию</option>
+                }
+                else
+                {
+                    <option value="@true">По дате добавления</option>
+                    <option selected="selected" value="@false">По наименованию</option>
+                }
+            </select>
+
+            <select id="sortdesc" class="form-control" style="width: 30%; margin-left: 20px" onchange="change();">
+                @if (Model.SortDesc)
+                {
+                    <option value="@false">По возрастанию</option>
+                    <option selected="selected" value="@true">По убыванию</option>
+                }
+                else
+                {
+                    <option selected="selected" value="@false">По возрастанию</option>
+                    <option value="@true">По убыванию</option>
+                }
+            </select>
+        </footer>
+        <div style="margin-top: 20px;"><b>Тесты</b></div>
+        <table style="margin-bottom: -2px">
+            <tr><th>Наименование</th><th style="width:25%">Доступность</th></tr>
+        </table>
+        <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+            <table>
+                <tr style="display:none">
+                </tr>
+                @{
+                    foreach (var Test in Model.ListTest)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="UpdateTest" asp-route-Id="@Test.Id">@Test.Name</a>
+                            </td>
+                            @if (@Test.Availability)
+                            {
+                                <td style="width:25%"><b>+</b></td>
+                            }
+                            else
+                            {
+                                <td style="width:25%"><b>–</b></td>
+                            }
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </article>
+</form>
+
+
+<script>
+
+    function change() {
+        var SortDesc = document.getElementById("sortdesc").value;
+        var SortDate = document.getElementById("sortdate").value;
+
+        window.location.href = "@Url.Action("ChangeListTest", "Test")?SortDesc=" + SortDesc + "&SortDate=" + SortDate;
+    }
+
+</script>

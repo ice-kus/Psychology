@@ -1,0 +1,41 @@
+﻿@using Psychology.ViewModels
+@model LecturerUpdateCriteriaViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Список критериев";
+}
+<form asp-action="Index" method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Список критериев</h2>
+            </div>
+        </header>
+        <table style="margin-top: 20px; margin-bottom: -2px">
+            <tr><th style="width:5%">№</th><th>Наименование критерия</th></tr>
+        </table>
+        <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+            <table>
+                <tr style="display:none">
+
+                </tr>
+                @{
+                    int i = 1;
+                    foreach (var Criteria in Model.ListCriteria)
+                    {
+                        <tr>
+                            <td style="width:5%">
+                                @i
+                            </td>
+                            <td>
+                                <a asp-action="UpdateCriteria" asp-route-Id="@Criteria.Id">@Criteria.Name</a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </table>
+        </div>
+    </article>
+</form>

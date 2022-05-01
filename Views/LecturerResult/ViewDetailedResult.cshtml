@@ -1,0 +1,24 @@
+﻿@using Psychology.ViewModels
+@model LecturerResultViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Просмотр подробностей прохождения";
+}
+<form asp-action="Index" method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>@Model.Statistics.Test.Name (@Model.Statistics.Date.ToShortDateString()) - @Model.Statistics.Student.Name</h2>
+            </div>
+        </header>
+        @foreach (var StatisticsQuestion in Model.Statistics.ListStatisticsQuestion)
+        {
+            var TestQuestion = Model.ListTestQuestion.FirstOrDefault(i => i.NumQuestion == StatisticsQuestion.NumQuestion && i.NumAnswer == StatisticsQuestion.NumAnswer);
+            <p><b>@TestQuestion.NumQuestion. @TestQuestion.Question.Text</b> 
+            <br />
+            @TestQuestion.Answer.Text</p>
+         }
+
+    </article>
+</form>

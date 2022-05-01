@@ -1,0 +1,71 @@
+﻿@using Psychology.ViewModels
+@model StudentResultViewModel
+
+@{
+    Layout = "_Student";
+    ViewData["Title"] = "Список результатов";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Список результатов</h2>
+            </div>
+        </header>
+        <footer>
+            <div class="select">
+                <select asp-for="SortDate" class="form-control" style="width: 250px;">
+                    @if (Model.SortDate)
+                    {
+                        <option selected="selected" value="@true">По дате прохождения</option>
+                        <option value="@false">По тесту</option>
+                    }
+                    else
+                    {
+                        <option value="@true">По дате прохождения</option>
+                        <option selected="selected" value="@false">По тесту</option>
+                    }
+                </select>
+            </div>
+            <div class="select">
+                <select asp-for="SortDesc" class="form-control" style="width: 220px; margin-left: 20px">
+                    @if (Model.SortDesc)
+                    {
+                        <option value="@false">По возрастанию</option>
+                        <option selected="selected" value="@true">По убыванию</option>
+                    }
+                    else
+                    {
+                        <option selected="selected" value="@false">По возрастанию</option>
+                        <option value="@true">По убыванию</option>
+                    }
+                </select>
+            </div>
+            <div class="actions">
+                <input class="button" asp-action="SortListStatistics" style="margin-left: 20px" type="submit" value="Сортировать">
+            </div>
+        </footer>
+        <table style="margin-top: 20px; margin-bottom: -2px">
+            <tr><th>Тест</th><th style="width:25%">Дата прохождения</th></tr>
+        </table>
+        <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+            <table>
+                <tr style="display:none">
+                </tr>
+                @{
+                    foreach (var Statistics in Model.ListStatistics)
+                    {
+                        <tr>
+                            <td>
+                                <a target="_blank" asp-action="ViewResult" asp-route-StatisticsId="@Statistics.Id">@Statistics.Test.Name</a>
+                            </td>
+                            <td style="width:22%">
+                                @Statistics.Date.ToShortDateString()
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </article>
+</form>

@@ -1,0 +1,39 @@
+﻿@using Psychology.ViewModels
+@model LecturerUpdateQuestionViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Список вопросов";
+}
+<article class="post">
+    <header>
+        <div class="title">
+            <h2>Список вопросов</h2>
+        </div>
+    </header>
+    <table style="margin-top: 20px; margin-bottom: -2px">
+        <tr><th style="width:5%">№</th><th>Текст вопроса</th></tr>
+    </table>
+    <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+        <table>
+            <tr style="display:none">
+
+            </tr>
+            @{
+                int i = 1;
+                foreach (var Question in Model.ListQuestion)
+                {
+                    <tr>
+                        <td style="width:5%">
+                            @i
+                        </td>
+                        <td>
+                            <a asp-action="UpdateQuestion" asp-route-TestId="@Model.TestId" asp-route-QuestionId="@Question.Id">@Question.Text</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </table>
+    </div>
+</article>

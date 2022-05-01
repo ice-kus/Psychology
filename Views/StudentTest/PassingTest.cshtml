@@ -1,0 +1,45 @@
+﻿@using Psychology.ViewModels
+@model StudentPassingTestViewModel
+
+@{
+    Layout = "_Student";
+    ViewData["Title"] = "Прохождение теста";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Вопрос №@(Model.NumQuestion + 1)</h2>
+            </div>
+        </header>
+
+        <div contenteditable="true">
+            <p>
+                @Model.ListTestQuestion.First().Question.Text
+            </p>
+        </div>
+        <div class="radio">
+            @{
+                int i = 1;
+                foreach (var TQ in Model.ListTestQuestion)
+                {
+                    <input type="radio" name="NumAnswer" value="@i" checked="@false">
+                    @TQ.Answer.Text
+                    <br />
+                    i++;
+                }
+            }
+        </div>
+        <div class="actions">
+            <input asp-action="PassingTest" style="margin-top: 20px" type="submit" value="Далее">
+        </div>
+        <input type="hidden" asp-for="NumQuestion" value="@Model.NumQuestion">
+        <input type="hidden" asp-for="TestId" value="@Model.TestId">
+        <input type="hidden" asp-for="StatisticsId" value="@Model.StatisticsId">
+        <input type="hidden" asp-for="TestSize" value="@Model.TestSize">
+        @foreach (var Mix in Model.ListMix)
+        {
+            <input type="hidden" asp-for="ListMix" value="@Mix">
+        }
+    </article>
+</form>

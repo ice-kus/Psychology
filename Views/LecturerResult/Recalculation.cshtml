@@ -1,0 +1,40 @@
+﻿@using Psychology.ViewModels
+@model LecturerRecalculationViewModel
+
+@{
+    Layout = "_Lecturer";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Перерасчёт результатов</h2>
+            </div>
+        </header>
+        <footer>
+            <div style="width: 15%;"><b>Группа</b></div>
+            <div style="width: 45%; margin-left: 20px;"><b>Тест</b></div>
+        </footer>
+        <footer>
+            <select asp-for="GroupId" class="form-control" style="width: 15%;">
+                @{
+                    foreach (var Group in Model.ListGroup)
+                    {
+                        <option value="@Group.Id">@Group.Name</option>
+                    }
+                }
+            </select>
+            <select asp-for="TestId" class="form-control" id="student" style="width: 45%; margin-left: 20px;">
+                @{
+                    foreach (var Test in Model.ListTest)
+                    {
+                        <option value="@Test.Id">@Test.Name</option>
+                    }
+                }
+            </select>
+        </footer>
+        <ul class="actions">
+            <li><input class="button" style="margin-top: 20px;" type="submit" value="Произвести перерасчет"></li>
+        </ul>
+    </article>
+</form>

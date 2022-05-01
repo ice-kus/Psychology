@@ -1,0 +1,71 @@
+﻿@using Psychology.ViewModels
+@model StudentResultViewModel
+
+@{
+    Layout = "_Student";
+    ViewData["Title"] = "Просмотр результата";
+}
+<form asp-action="Index" method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>@Model.Statistics.Test.Name (@Model.Statistics.Date.ToShortDateString())</h2>
+            </div>
+        </header>
+
+        <h3>Результат</h3>
+        <div id="sclrx" class="resScale">
+            <div class="nisBlock">
+                <table class="nisTable" border=0>
+
+                    @{
+                        int i = 1;
+                        foreach (var Result in Model.Statistics.ListResult)
+                        {
+                            var width = 650 * Result.Points / Result.Criteria.ListNumQuestion.Count;
+                            <tr>
+                                <td class="nisName"><div>@Result.Criteria.Name</div></td>
+                                <td class="nisScale" width=650>
+                                    <div style="max-width: 650px;">
+                                        <svg width="100%" height=25 viewBox="0 0 650 25" preserveAspectRatio="none">
+                                            <defs>
+                                                <pattern id="pg" x=0 y=0 width=21 height=25 patternUnits="userSpaceOnUse">
+                                                    <rect x=0 y=0 width=20 height=25 stroke-width=0 fill="PaleTurquoise" />
+                                                </pattern>
+                                                <pattern id="pa" x=0 y=0 width=21 height=25 patternUnits="userSpaceOnUse">
+                                                    <rect x=0 y=0 width=20 height=25 stroke-width=0 fill="LightSeaGreen" />
+                                                </pattern>
+                                            </defs>
+
+                                            <rect x=0 y=0 width=650 height=25 stroke-width=0 fill="url(#pg)" />
+                                            <rect x=0 y=0 width=@width height=25 stroke-width=0 fill="url(#pa)" />
+                                        </svg>
+                                    </div>
+                                </td>
+                                <td class="nisVal"><div>@Result.Points / @Result.Criteria.ListNumQuestion.Count</div></td>
+                            </tr>
+                            i++;
+                        }
+                    }
+              
+                </table>
+            </div>
+        </div>
+
+        <h3>Обработка результата</h3>
+        <textarea>@Model.Statistics.Test.Processing</textarea>
+    </article>
+</form>
+
+<script>
+    var tx = document.getElementsByTagName('textarea');//РАСТЯГИВАЕМ_textarea
+
+    for (var i = 0; i < tx.length; i++) {
+
+        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden; resize:none; pointer-events:none;');
+
+        tx[i].addEventListener("input", OnInput, false);
+
+    }
+</script>
+

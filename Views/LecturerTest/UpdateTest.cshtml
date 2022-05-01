@@ -1,0 +1,71 @@
+﻿@using Psychology.ViewModels
+@model LecturerTestViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Редактирование теста";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Редактирование теста</h2>
+            </div>
+            <div class="meta">
+                <a asp-action="ListQuestion" asp-route-Id="@Model.Test.Id">Перейти к вопросам</a>
+                <a asp-action="ListCriteria" asp-route-Id="@Model.Test.Id">Перейти к критериям</a>
+            </div>
+        </header>
+
+        <p style="color:crimson">@Model.Message</p>
+        <div><b>Наименование</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Test.Name" class="form-control" style="resize:vertical" maxlength="150" rows="2" placeholder="Введите наименование теста..." required></textarea>
+        </div>
+
+
+        <div style="margin-top:20px"><b>Описание</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Test.Description" class="form-control" style="resize:vertical" maxlength="400" rows="3" placeholder="Введите описание теста..." required></textarea>
+        </div>
+
+
+        <div style="margin-top:20px"><b>Инстукция к прохождению</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Test.Instruction" class="form-control" style="resize:vertical" maxlength="500" rows="3" placeholder="Введите инструкцию к прохождению теста..." required></textarea>
+        </div>
+
+
+        <div style="margin-top:20px"><b>Рекомендации</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Test.Processing" class="form-control" style="resize:vertical" rows="5" placeholder="Введите рекомендации теста..." required></textarea>
+        </div>
+
+        <div style="margin-top:20px"><b>Доступность</b></div>
+        <div class="checkbox">
+            <input style="transform:scale(1.5)" type="checkbox" asp-for="Test.Availability" class="form-control">
+        </div>
+
+        <div style="margin-top:20px"><b>Перемешивание вопросов</b></div>
+        <div class="checkbox">
+            <input style="transform:scale(1.5)" type="checkbox" asp-for="Test.Mix" class="form-control">
+        </div>
+
+
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Сохранить изменения">
+        </div>
+        @if (Model.Delete)
+         {
+            <div class="actions" style="margin-top:20px">
+                <input asp-action="DeleteTest" type="submit" value="Удалить тест">
+            </div>
+         }
+
+        <input type="hidden" asp-for="Test.Id" value="@Model.Test.Id">
+        <input type="hidden" asp-for="Test.Type" value="@Model.Test.Type">
+        <input type="hidden" asp-for="Test.Size" value="@Model.Test.Size">
+        <input type="hidden" asp-for="Test.Scale" value="@Model.Test.Scale">
+
+    </article>
+</form>

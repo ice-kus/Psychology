@@ -1,0 +1,23 @@
+﻿@using Psychology.ViewModels
+@model LecturerAddTestViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Добавление теста";
+}
+<form  method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Добавление теста</h2>
+            </div>
+        </header>
+        <p style="color:crimson">@Model.Message</p>
+        <ul class="file">
+            <input type="file" asp-for="Path">
+        </ul>
+        <ul class="actions">
+            <li><input class="button" type="submit" value="Добавить"></li>
+        </ul>
+    </article>
+</form>

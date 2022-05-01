@@ -1,0 +1,37 @@
+﻿@using Psychology.ViewModels
+@model LecturerUpdateQuestionViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Редактирование вопроса";
+}
+
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2>Редактирование вопроса</h2>
+            </div>
+        </header>
+        <div><b>Вопрос</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Question.Text" class="form-control" style="resize:vertical" rows="2" placeholder="Введите вопрос..." maxlength="300" required></textarea>
+        </div>
+        <input type="hidden" asp-for="Question.Id" value="@Model.Question.Id">
+        @{
+            if (Model.Type == 3)
+                for (int i = 0; i < Model.ListAnswer.Count; i++)
+                {
+                    <div style="margin-top:20px"><b>Ответ №@(i + 1)</b></div>
+                    <div class="text" style="min-width:100%">
+                        <textarea asp-for="ListAnswer[i].Text" class="form-control" style="resize:vertical" rows="2" placeholder="Введите ответ..." maxlength="150" required></textarea>
+                    </div>
+                    <input type="hidden" asp-for="ListAnswer[i].Id" value="@Model.ListAnswer[i].Id">
+                }
+        }
+        <input type="hidden" asp-for="TestId" value="@Model.TestId">
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Сохранить изменения">
+        </div>
+    </article>
+</form>

@@ -5,21 +5,21 @@ using System.Collections.Generic;
 
 namespace Psychology.Data.Repositories
 {
-    public class StatisticsQuestionRepository : IStatisticsQuestionRepository
+    public class PassageDataQuestionRepository : IPassageDataQuestionRepository
     {
         private readonly ApplicationDbContext DB;
-        public StatisticsQuestionRepository(ApplicationDbContext DB)
+        public PassageDataQuestionRepository(ApplicationDbContext DB)
         {
             this.DB = DB;
         }
-        public IEnumerable<StatisticsQuestion> List => DB.StatisticsQuestion;
-        public void Create(long StatisticsId, int NumQuestion, int NumAnswer)
+        public IEnumerable<PassageDataQuestion> List => DB.PassageDataQuestion;
+        public void Create(long PassageDataId, int NumQuestion, int NumAnswer)
         {
-            DB.StatisticsQuestion.Add
+            DB.PassageDataQuestion.Add
                 (
-                new StatisticsQuestion
+                new PassageDataQuestion
                 {
-                    StatisticsId = StatisticsId,
+                    PassageDataId = PassageDataId,
                     NumQuestion = NumQuestion,
                     NumAnswer = NumAnswer
                 }
@@ -27,7 +27,7 @@ namespace Psychology.Data.Repositories
         }
         public void Delete(long Id)
         {
-            DB.StatisticsQuestion.Remove(DB.StatisticsQuestion.Find(Id));
+            DB.PassageDataQuestion.Remove(DB.PassageDataQuestion.Find(Id));
         }
         public void Save()
         {

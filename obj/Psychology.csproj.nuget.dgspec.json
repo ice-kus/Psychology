@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\Psychology.csproj": {}
+    "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\Psychology.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\Psychology.csproj": {
+    "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\Psychology.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\Psychology.csproj",
+        "projectUniqueName": "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\Psychology.csproj",
         "projectName": "Psychology",
-        "projectPath": "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\Psychology.csproj",
+        "projectPath": "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\Psychology.csproj",
         "packagesPath": "C:\\Users\\mlaym\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\obj\\",
+        "outputPath": "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mlaym\\AppData\\Roaming\\NuGet\\NuGet.Config",

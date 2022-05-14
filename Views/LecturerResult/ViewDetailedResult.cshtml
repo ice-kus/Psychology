@@ -9,10 +9,10 @@
     <article class="post">
         <header>
             <div class="title">
-                <h2>@Model.Statistics.Test.Name (@Model.Statistics.Date.ToShortDateString()) - @Model.Statistics.Student.Name</h2>
+                <h1>@Model.PassageData.Test.Name (@Model.PassageData.Date.ToShortDateString()) - @Model.PassageData.Student.Name</h1>
             </div>
         </header>
-        @foreach (var StatisticsQuestion in Model.Statistics.ListStatisticsQuestion)
+        @foreach (var StatisticsQuestion in Model.PassageData.ListPassageDataQuestion)
         {
             var TestQuestion = Model.ListTestQuestion.FirstOrDefault(i => i.NumQuestion == StatisticsQuestion.NumQuestion && i.NumAnswer == StatisticsQuestion.NumAnswer);
             <p><b>@TestQuestion.NumQuestion. @TestQuestion.Question.Text</b> 

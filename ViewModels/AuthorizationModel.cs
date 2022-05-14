@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace Psychology.ViewModels
 {
     public class AuthorizationModel

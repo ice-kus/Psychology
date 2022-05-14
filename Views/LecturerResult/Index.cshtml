@@ -3,17 +3,21 @@
 
 @{
     Layout = "_Lecturer";
+    ViewData["Title"] = "Результаты";
 }
-<form >
+<form>
     <article class="post">
         <header>
             <div class="title">
-                <h2>Результаты (поиск по студенту)</h2>
+                <h1>Просмотр результатов</h1><p><b>(поиск по студенту)</b></p>
             </div>
             <div class="meta">
-                <a asp-action="SearchByTest">поиск по тесту</a>
+                <a href="/LecturerResult/Recalculation">Перейти к перерасчету результатов</a>
             </div>
         </header>
+        <ul class="actions">
+            <li><a asp-action="SearchByTest" class="button">Перейти к поиску по тесту</a></li>
+        </ul>
         <footer>
             <div style="width: 15%;"><b>Группа</b></div>
             <div style="width: 45%; margin-left: 20px;"><b>Студент</b></div>
@@ -77,7 +81,6 @@
                     <option value="@true">По убыванию</option>
                 }
             </select>
-
         </footer>
         <div style="margin-top: 20px;"><b>Результаты</b></div>
         <table style=" margin-bottom: -2px">
@@ -88,14 +91,14 @@
                 <tr style="display:none">
                 </tr>
                 @{
-                    foreach (var Statistics in Model.ListStatistics)
+                    foreach (var PassageData in Model.ListPassageData)
                     {
                         <tr>
                             <td>
-                                <a target="_blank" asp-action="ViewResult" asp-route-StatisticsId="@Statistics.Id">@Statistics.Test.Name</a>
+                                <a target="_blank" asp-action="ViewResult" asp-route-PassageDataId="@PassageData.Id">@PassageData.Test.Name</a>
                             </td>
                             <td style="width:22%">
-                                @Statistics.Date.ToShortDateString()
+                                @PassageData.Date.ToShortDateString()
                             </td>
                         </tr>
                     }
@@ -113,7 +116,7 @@
         var SortDesc = document.getElementById("sortdesc").value;
         var SortDate = document.getElementById("sortdate").value;
 
-        window.location.href = "@Url.Action("ChangeListInSearchByStudent", "Result")?GroupId=" + GroupId + "&StudentId=" + StudentId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate + "&ChangeGroup=" + true;
+        window.location.href = "@Url.Action("ChangeListInSearchByStudent", "LecturerResult")?GroupId=" + GroupId + "&StudentId=" + StudentId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate + "&ChangeGroup=" + true;
     }
 
 
@@ -123,6 +126,6 @@
         var SortDesc = document.getElementById("sortdesc").value;
         var SortDate = document.getElementById("sortdate").value;
 
-        window.location.href = "@Url.Action("ChangeListInSearchByStudent", "Result")?GroupId=" + GroupId + "&StudentId=" + StudentId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate + "&ChangeGroup=" + false;
+        window.location.href = "@Url.Action("ChangeListInSearchByStudent", "LecturerResult")?GroupId=" + GroupId + "&StudentId=" + StudentId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate + "&ChangeGroup=" + false;
     }
 </script>

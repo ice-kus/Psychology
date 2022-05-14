@@ -31,8 +31,8 @@ namespace Psychology
             services.AddTransient<ILecturerRepository, LecturerRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IResultRepository, ResultRepository>();
-            services.AddTransient<IStatisticsRepository, StatisticsRepository>();
-            services.AddTransient<IStatisticsQuestionRepository, StatisticsQuestionRepository>();
+            services.AddTransient<IPassageDataRepository, PassageDataRepository>();
+            services.AddTransient<IPassageDataQuestionRepository, PassageDataQuestionRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<ITestRepository, TestRepository>();
             services.AddTransient<ITestQuestionRepository, TestQuestionRepository>();
@@ -43,8 +43,8 @@ namespace Psychology
             services.AddScoped<LecturerRepository>();
             services.AddScoped<ResultRepository>();
             services.AddScoped<QuestionRepository>();
-            services.AddScoped<StatisticsRepository>();
-            services.AddScoped<StatisticsQuestionRepository>();
+            services.AddScoped<PassageDataRepository>();
+            services.AddScoped<PassageDataQuestionRepository>();
             services.AddScoped<TestRepository>();
             services.AddScoped<TestQuestionRepository>();
 

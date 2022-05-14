@@ -9,7 +9,7 @@
     <article class="post">
         <header>
             <div class="title">
-                <h2>Вопрос №@(Model.NumQuestion + 1)</h2>
+                <h1>Вопрос №@(Model.NumQuestion + 1)</h1>
             </div>
         </header>
 
@@ -35,7 +35,7 @@
         </div>
         <input type="hidden" asp-for="NumQuestion" value="@Model.NumQuestion">
         <input type="hidden" asp-for="TestId" value="@Model.TestId">
-        <input type="hidden" asp-for="StatisticsId" value="@Model.StatisticsId">
+        <input type="hidden" asp-for="PassageDataId" value="@Model.PassageDataId">
         <input type="hidden" asp-for="TestSize" value="@Model.TestSize">
         @foreach (var Mix in Model.ListMix)
         {

@@ -9,10 +9,10 @@
     <article class="post">
         <header>
             <div class="title">
-                <h2>@Model.Statistics.Test.Name (@Model.Statistics.Date.ToShortDateString()) - @Model.Statistics.Student.Name</h2>
+                <h1>@Model.PassageData.Test.Name (@Model.PassageData.Date.ToShortDateString()) - @Model.PassageData.Student.Name</h1>
             </div>
             <div class="meta">
-                <a asp-action="ViewDetailedResult" asp-route-StatisticsId="@Model.Statistics.Id">Подробности прохождения</a>
+                <a target="_blank" asp-action="ViewDetailedResult" asp-route-PassageDataId="@Model.PassageData.Id">Подробности прохождения</a>
             </div>
         </header>
 
@@ -23,7 +23,7 @@
 
                     @{
                         int i = 1;
-                        foreach (var Result in Model.Statistics.ListResult)
+                        foreach (var Result in Model.PassageData.ListResult)
                         {
                             var width = 650 * Result.Points / Result.Criteria.ListNumQuestion.Count;
                             <tr>
@@ -56,7 +56,7 @@
         </div>
 
         <h3>Обработка результата</h3>
-        <textarea>@Model.Statistics.Test.Processing</textarea>
+        <textarea>@Model.PassageData.Test.Processing</textarea>
     </article>
 </form>
 

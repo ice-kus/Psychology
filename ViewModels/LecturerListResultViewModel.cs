@@ -1,8 +1,5 @@
 ﻿using Psychology.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Psychology.ViewModels
 {
@@ -14,7 +11,7 @@ namespace Psychology.ViewModels
         public long TestId { get; set; }
         public long GroupId { get; set; }
         public long StudentId { get; set; }
-        public IEnumerable<Statistics> ListStatistics { get; set; }
+        public IEnumerable<PassageData> ListPassageData { get; set; }
         public bool SortDate { get; set; }
         public bool SortDesc { get; set; }
     }

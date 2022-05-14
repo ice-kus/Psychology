@@ -8,12 +8,15 @@
     <article class="post">
         <header>
             <div class="title">
-                <h2>Результаты (поиск по тесту)</h2>
+                <h1>Просмотр результатов</h1><p><b>(поиск по тесту)</b></p>
             </div>
             <div class="meta">
-                <a asp-action="Index">поиск по студенту</a>
+                <a href="/LecturerResult/Recalculation">Перейти к перерасчету результатов</a>
             </div>
         </header>
+        <ul class="actions">
+            <li><a asp-action="Index" class="button">Перейти к поиску по студенту</a></li>
+        </ul>
         <footer>
             <div style="width: 15%; "><b>Группа</b></div>
             <div style="width: 45%; margin-left: 20px;"><b>Тест</b></div>
@@ -88,11 +91,11 @@
                 <tr style="display:none">
                 </tr>
                 @{
-                    foreach (var Statistics in Model.ListStatistics)
+                    foreach (var Statistics in Model.ListPassageData)
                     {
                         <tr>
                             <td>
-                                <a target="_blank" asp-action="ViewResult" asp-route-StatisticsId="@Statistics.Id">@Statistics.Student.Name</a>
+                                <a target="_blank" asp-action="ViewResult" asp-route-PassageDataId="@Statistics.Id">@Statistics.Student.Name</a>
                             </td>
                             <td style="width:22%">
                                 @Statistics.Date.ToShortDateString()
@@ -113,6 +116,6 @@
         var SortDesc = document.getElementById("sortdesc").value;
         var SortDate = document.getElementById("sortdate").value;
 
-        window.location.href = "@Url.Action("ChangeListInSearchByTest", "Result")?GroupId=" + GroupId + "&TestId=" + TestId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate;
+        window.location.href = "@Url.Action("ChangeListInSearchByTest", "LecturerResult")?GroupId=" + GroupId + "&TestId=" + TestId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate;
     }
 </script>

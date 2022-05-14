@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ty1uQdi3MIPQz4UfXStbl51nPDBWcv0xWlIv/je2NiCLcre+pscR4Mu5Vg8KFSTDUkuJIG2XL1olxJ2RtIwNOQ==",
+  "dgSpecHash": "ISYKGu6yKa6Mo65p0h3bIsPBuF3wcvLFbaSv/BXQkGVsCb/Y0cXoVkshNTuyRFkQ/3eEodJ7LMucaAR5XRcpxQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mlaym\\OneDrive\\Рабочий стол\\Psychology\\Psychology.csproj",
+  "projectFilePath": "C:\\Users\\mlaym\\OneDrive\\Документы\\GitHub\\Psychology\\Psychology.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mlaym\\.nuget\\packages\\entityframework\\5.0.0\\entityframework.5.0.0.nupkg.sha512",
     "C:\\Users\\mlaym\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.0\\microsoft.entityframeworkcore.5.0.0.nupkg.sha512",

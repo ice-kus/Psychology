@@ -17,8 +17,8 @@ namespace Psychology.Data
         public DbSet<Question> Question { get; set; }
         public DbSet<Result> Result { get; set; }
         public DbSet<TestQuestion> TestQuestionAnswer { get; set; }
-        public DbSet<Statistics> Statistics { get; set; }
-        public DbSet<StatisticsQuestion> StatisticsQuestion { get; set; }
+        public DbSet<PassageData> PassageData { get; set; }
+        public DbSet<PassageDataQuestion> PassageDataQuestion { get; set; }
         public DbSet<Student> Student { get; set; }
         public DbSet<Test> Test { get; set; }
         public DbSet<TestQuestion> TestQuestion { get; set; }

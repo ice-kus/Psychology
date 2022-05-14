@@ -14,17 +14,17 @@ namespace Psychology.Controllers
     {
         private readonly ITestRepository _Test;
         private readonly ITestQuestionRepository _TestQuestion;
-        private readonly IStatisticsRepository _Statistics;
-        private readonly IStatisticsQuestionRepository _StatisticsQuestion;
+        private readonly IPassageDataRepository _PassageData;
+        private readonly IPassageDataQuestionRepository _PassageDataQuestion;
         private readonly ICriteriaRepository _Criteria;
         private readonly IResultRepository _Result;
 
-        public StudentTestController(ITestRepository _Test, ITestQuestionRepository _TestQuestion, IStatisticsRepository _Statistics, IStatisticsQuestionRepository _StatisticsQuestion, ICriteriaRepository _Criteria, IResultRepository _Result)
+        public StudentTestController(ITestRepository _Test, ITestQuestionRepository _TestQuestion, IPassageDataRepository _PassageData, IPassageDataQuestionRepository _PassageDataQuestion, ICriteriaRepository _Criteria, IResultRepository _Result)
         {
             this._Test = _Test;
             this._TestQuestion = _TestQuestion;
-            this._Statistics = _Statistics;
-            this._StatisticsQuestion = _StatisticsQuestion;
+            this._PassageData = _PassageData;
+            this._PassageDataQuestion = _PassageDataQuestion;
             this._Criteria = _Criteria;
             this._Result = _Result;
         }
@@ -91,10 +91,10 @@ namespace Psychology.Controllers
             Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.TestId && i.NumQuestion == Model.ListMix[Model.NumQuestion]).OrderBy(i => i.NumAnswer);
             
             var Date = DateTime.Now;
-            _Statistics.Create(long.Parse(User.Identity.Name), Model.TestId, Date);
-            _Statistics.Save();
+            _PassageData.Create(long.Parse(User.Identity.Name), Model.TestId, Date, false);
+            _PassageData.Save();
 
-            Model.StatisticsId = _Statistics.List.FirstOrDefault(i => i.StudentId == long.Parse(User.Identity.Name) && i.TestId == Model.TestId && i.Date == Date).Id;
+            Model.PassageDataId = _PassageData.List.FirstOrDefault(i => i.StudentId == long.Parse(User.Identity.Name) && i.TestId == Model.TestId && i.Date == Date).Id;
             
             return View("PassingTest", Model);
         }
@@ -102,8 +102,8 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult PassingTest(StudentPassingTestViewModel Model, int NumAnswer)
         {
-            _StatisticsQuestion.Create(Model.StatisticsId, Model.ListMix[Model.NumQuestion], NumAnswer);
-            _StatisticsQuestion.Save();
+            _PassageDataQuestion.Create(Model.PassageDataId, Model.ListMix[Model.NumQuestion], NumAnswer);
+            _PassageDataQuestion.Save();
 
             Model.NumQuestion++;
             Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.TestId && i.NumQuestion == Model.ListMix[Model.NumQuestion]).OrderBy(i => i.NumAnswer);
@@ -111,21 +111,21 @@ namespace Psychology.Controllers
             if (Model.NumQuestion < Model.TestSize)
                 return View(Model);
             else
-                return RedirectToAction("GetResult", new { StatisticsId = Model.StatisticsId, TestId = Model.TestId });
+                return RedirectToAction("GetResult", new { StatisticsId = Model.PassageDataId, TestId = Model.TestId });
         }
         // -- получение и сохранение результата --
         public ActionResult GetResult (long StatisticsId, long TestId)
         {
             var Test = _Test.List.First(i => i.Id == TestId);
             var ListCriteria = _Criteria.List.Where(i => i.TestId == TestId);
-            var ListStatisticsQuestion = _StatisticsQuestion.List.Where(i => i.StatisticsId == StatisticsId).ToList();
+            var LisPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == StatisticsId).ToList();
             if (Test.Type == 1)
             {
                 foreach (var Criteria in ListCriteria)
                 {
                     int Points = 0;
                     foreach (var NumQuestion in Criteria.ListNumQuestion)
-                        Points += ListStatisticsQuestion.First(j => j.NumQuestion == NumQuestion).NumAnswer;
+                        Points += LisPassageDataQuestion.First(j => j.NumQuestion == NumQuestion).NumAnswer;
                     _Result.Create(StatisticsId, Criteria.Id, Points);
                 }
             }
@@ -135,12 +135,15 @@ namespace Psychology.Controllers
                 {
                     int Points = 0;
                     for (int i = 0; i < Criteria.ListNumQuestion.Count; i++)
-                        if (ListStatisticsQuestion.Any(j => j.NumQuestion == Criteria.ListNumQuestion[i] && j.NumAnswer == Criteria.ListNumAnswer[i]))
+                        if (LisPassageDataQuestion.Any(j => j.NumQuestion == Criteria.ListNumQuestion[i] && j.NumAnswer == Criteria.ListNumAnswer[i]))
                             Points++;
                     _Result.Create(StatisticsId, Criteria.Id, Points);
                 }
 
             }
+            var PassageData = _PassageData.List.First(i => i.Id == StatisticsId);
+            PassageData.Full = true;
+            _PassageData.Update(PassageData);
             _Result.Save();
             return RedirectToAction("ViewResult", "Result", new { StatisticsId = StatisticsId });
         }

@@ -3,13 +3,13 @@
 
 @{
     Layout = "_Student";
-    ViewData["Title"] = "Список результатов";
+    ViewData["Title"] = "Результаты";
 }
 <form method="post">
     <article class="post">
         <header>
             <div class="title">
-                <h2>Список результатов</h2>
+                <h1>Результаты</h1>
             </div>
         </header>
         <footer>
@@ -42,7 +42,7 @@
                 </select>
             </div>
             <div class="actions">
-                <input class="button" asp-action="SortListStatistics" style="margin-left: 20px" type="submit" value="Сортировать">
+                <input class="button" asp-action="SortListPassageData" style="margin-left: 20px" type="submit" value="Сортировать">
             </div>
         </footer>
         <table style="margin-top: 20px; margin-bottom: -2px">
@@ -53,11 +53,11 @@
                 <tr style="display:none">
                 </tr>
                 @{
-                    foreach (var Statistics in Model.ListStatistics)
+                    foreach (var Statistics in Model.ListPassageData)
                     {
                         <tr>
                             <td>
-                                <a target="_blank" asp-action="ViewResult" asp-route-StatisticsId="@Statistics.Id">@Statistics.Test.Name</a>
+                                <a target="_blank" asp-action="ViewResult" asp-route-PassageDataId="@Statistics.Id">@Statistics.Test.Name</a>
                             </td>
                             <td style="width:22%">
                                 @Statistics.Date.ToShortDateString()

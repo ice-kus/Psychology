@@ -8,18 +8,18 @@ namespace Psychology.Controllers
 {
     public class LecturerResultController : Controller
     {
-        private readonly IStatisticsRepository _Statistics;
-        private readonly IStatisticsQuestionRepository _StatisticsQuestion;
+        private readonly IPassageDataRepository _PassageData;
+        private readonly IPassageDataQuestionRepository _PassageDataQuestion;
         private readonly IGroupRepository _Group;
         private readonly IStudentRepository _Student;
         private readonly ITestRepository _Test;
         private readonly ICriteriaRepository _Criteria;
         private readonly IResultRepository _Result;
         private readonly ITestQuestionRepository _TestQuestion;
-        public LecturerResultController(ICriteriaRepository _Criteria, ITestQuestionRepository _TestQuestion, IResultRepository _Result, ITestRepository _Test, IStudentRepository _Student, IStatisticsRepository _Statistics, IStatisticsQuestionRepository _StatisticsQuestion, IGroupRepository _Group)
+        public LecturerResultController(ICriteriaRepository _Criteria, ITestQuestionRepository _TestQuestion, IResultRepository _Result, ITestRepository _Test, IStudentRepository _Student, IPassageDataRepository _PassageData, IPassageDataQuestionRepository _StatisticsQuestion, IGroupRepository _Group)
         {
-            this._Statistics = _Statistics;
-            this._StatisticsQuestion = _StatisticsQuestion;
+            this._PassageData = _PassageData;
+            this._PassageDataQuestion = _StatisticsQuestion;
             this._Group = _Group;
             this._Student = _Student;
             this._Test = _Test;
@@ -38,7 +38,7 @@ namespace Psychology.Controllers
             Model.GroupId = Model.ListGroup.First().Id;
             Model.ListStudent = _Student.List.Where(i => i.GroupId == Model.GroupId);
             Model.StudentId = Model.ListStudent.First().Id;
-            Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == Model.StudentId).OrderByDescending(i => i.Date);
+            Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == Model.StudentId).OrderByDescending(i => i.Date);
             return View(Model);
         }
 
@@ -59,19 +59,19 @@ namespace Psychology.Controllers
             var Test = _Test.List.First(i => i.Id == Model.TestId);
             var ListCriteria = _Criteria.List.Where(i => i.TestId == Model.TestId).OrderBy(i => i.Id);
 
-            var ListStatistics = _Statistics.List.Where(i => ListStudent.Any(j => j.Id == i.StudentId) && i.TestId == Model.TestId).Select(i => i.Id).ToList();
+            var ListPassageData = _PassageData.List.Where(i => ListStudent.Any(j => j.Id == i.StudentId) && i.Full == true && i.TestId == Model.TestId).Select(i => i.Id).ToList();
 
-            foreach(var Statistics in ListStatistics)
+            foreach(var PassageData in ListPassageData)
             {
-                var ListStatisticsQuestion = _StatisticsQuestion.List.Where(i => i.StatisticsId == Statistics).ToList();
-                var ListResult = _Result.List.Where(i => i.StatisticsId == Statistics).ToList();
+                var ListPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageData).ToList();
+                var ListResult = _Result.List.Where(i => i.PassageDataId == PassageData).ToList();
                 if (Test.Type == 1)
                 {
                     foreach (var Criteria in ListCriteria)
                     {
                         int Points = 0;
                         foreach (var NumQuestion in Criteria.ListNumQuestion)
-                            Points += ListStatisticsQuestion.First(j => j.NumQuestion == NumQuestion).NumAnswer;
+                            Points += ListPassageDataQuestion.First(j => j.NumQuestion == NumQuestion).NumAnswer;
                         Result Result = ListResult.FirstOrDefault(j => j.CriteriaId == Criteria.Id);
                         Result.Points = Points;
                         _Result.Update(Result);
@@ -83,7 +83,7 @@ namespace Psychology.Controllers
                     {
                         int Points = 0;
                         for (int i = 0; i < Criteria.ListNumQuestion.Count; i++)
-                            if (ListStatisticsQuestion.Any(j => j.NumQuestion == Criteria.ListNumQuestion[i] && j.NumAnswer == Criteria.ListNumAnswer[i]))
+                            if (ListPassageDataQuestion.Any(j => j.NumQuestion == Criteria.ListNumQuestion[i] && j.NumAnswer == Criteria.ListNumAnswer[i]))
                                 Points++;
                         Result Result = ListResult.FirstOrDefault(j => j.CriteriaId == Criteria.Id);
                         Result.Points = Points;
@@ -109,7 +109,7 @@ namespace Psychology.Controllers
             Model.GroupId = Model.ListGroup.First().Id;
             Model.TestId = Model.ListTest.First().Id;
             var ListStudent  = _Student.List.Where(i => i.GroupId == Model.GroupId).ToList();
-            Model.ListStatistics = _Statistics.List.Where(i => i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Date);
+            Model.ListPassageData = _PassageData.List.Where(i => i.TestId == Model.TestId && i.Full == true && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Date);
             return View(Model);
         }
         [HttpGet]
@@ -131,16 +131,16 @@ namespace Psychology.Controllers
             if (SortDate)
             {
                 if (SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == Model.StudentId).OrderByDescending(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == Model.StudentId).OrderByDescending(i => i.Date);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == Model.StudentId).OrderBy(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == Model.StudentId).OrderBy(i => i.Date);
             }
             else
             {
                 if (SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == Model.StudentId).OrderByDescending(i => i.Test.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == Model.StudentId).OrderByDescending(i => i.Test.Name);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == Model.StudentId).OrderBy(i => i.Test.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == Model.StudentId).OrderBy(i => i.Test.Name);
             }
 
             return View("Index", Model);
@@ -163,40 +163,40 @@ namespace Psychology.Controllers
             if (SortDate)
             {
                 if (SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Date);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderBy(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderBy(i => i.Date);
             }
             else
             {
                 if (SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Student.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderByDescending(i => i.Student.Name);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderBy(i => i.Student.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.TestId == Model.TestId && ListStudent.Any(j => j.Id == i.StudentId)).OrderBy(i => i.Student.Name);
             }
 
             return View("SearchByTest", Model);
         }
 
         [HttpGet]
-        public ViewResult ViewResult(long StatisticsId) 
+        public ViewResult ViewResult(long PassageDataId) 
         {
             var Model = new LecturerResultViewModel
             {
-                Statistics = _Statistics.List.First(i => i.Id == StatisticsId)
+                PassageData = _PassageData.List.First(i => i.Id == PassageDataId)
             };
-            Model.Statistics.ListResult = _Result.List.Where(i => i.StatisticsId == StatisticsId).OrderBy(i => i.CriteriaId);
+            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.CriteriaId);
             return View(Model);
         }
-        public ViewResult ViewDetailedResult(long StatisticsId) 
+        public ViewResult ViewDetailedResult(long PassageDataId) 
         {
             var Model = new LecturerResultViewModel
             {
-                Statistics = _Statistics.List.First(i => i.Id == StatisticsId)
+                PassageData = _PassageData.List.First(i => i.Id == PassageDataId)
             };
-            Model.Statistics.ListResult = _Result.List.Where(i => i.StatisticsId == StatisticsId);
-            Model.Statistics.ListStatisticsQuestion = _StatisticsQuestion.List.Where(i => i.StatisticsId == StatisticsId).OrderBy(i => i.NumQuestion);
-            Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.Statistics.TestId).OrderBy(i => i.NumQuestion);
+            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId);
+            Model.PassageData.ListPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.NumQuestion);
+            Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.PassageData.TestId).OrderBy(i => i.NumQuestion);
             return View(Model); 
         }
     }

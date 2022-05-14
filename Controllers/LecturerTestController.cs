@@ -13,7 +13,7 @@ namespace Psychology.Controllers
     public class LecturerTestController : Controller
     {
         private readonly ITestRepository _Test;
-        private readonly IStatisticsRepository _Statistics;
+        private readonly IPassageDataRepository _PassageData;
         private readonly ITestQuestionRepository _TestQuestion;
         private readonly IQuestionRepository _Question;
         private readonly IAnswerRepository _Answer;
@@ -25,14 +25,14 @@ namespace Psychology.Controllers
         private int Size;               // размер теста
         private int Scale;              // количество ответов на вопрос
 
-        public LecturerTestController(ITestRepository _Test, IStatisticsRepository _Statistics, ITestQuestionRepository _TestQuestion, IQuestionRepository _Question, IAnswerRepository _Answer, ICriteriaRepository _Criteria)
+        public LecturerTestController(ITestRepository _Test, IPassageDataRepository _PassageData, ITestQuestionRepository _TestQuestion, IQuestionRepository _Question, IAnswerRepository _Answer, ICriteriaRepository _Criteria)
         {
             this._Test = _Test;
             this._TestQuestion = _TestQuestion;
             this._Question = _Question;
             this._Answer = _Answer;
             this._Criteria = _Criteria;
-            this._Statistics = _Statistics;
+            this._PassageData = _PassageData;
         }
         // -- список тестов --
         public ViewResult Index()
@@ -77,7 +77,7 @@ namespace Psychology.Controllers
             var Model = new LecturerTestViewModel
             {
                 Test = _Test.List.First(i => i.Id == Id),
-                Delete = !_Statistics.List.Any(i => i.TestId == Id)
+                Delete = !_PassageData.List.Any(i => i.TestId == Id)
             };
             return View(Model);
         }

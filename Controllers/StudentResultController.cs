@@ -9,12 +9,12 @@ namespace Psychology.Controllers
     [Authorize]
     public class StudentResultController : Controller
     {
-        private readonly IStatisticsRepository _Statistics;
+        private readonly IPassageDataRepository _PassageData;
         private readonly IResultRepository _Result;
 
-        public StudentResultController(IStatisticsRepository _Statistics, IResultRepository _Result)
+        public StudentResultController(IPassageDataRepository _PassageData, IResultRepository _Result)
         {
-            this._Statistics = _Statistics;
+            this._PassageData = _PassageData;
             this._Result = _Result;
         }
 
@@ -24,39 +24,41 @@ namespace Psychology.Controllers
             {
                 SortDesc = true,
                 SortDate = true,
-                ListStatistics = _Statistics.List.Where(i => i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Date)
+                ListPassageData = _PassageData.List.Where(i => i.Full== true && i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Date)
             };
             return View(Model);
         }
-        // -- сортировка списка тестов --
+        // -- сортировка списка по тесту --
         [HttpPost]
-        public IActionResult SortListStatistics(StudentResultViewModel Model)
+        public IActionResult SortListPassageData(StudentResultViewModel Model)
         {
             if (Model.SortDate)
             {
                 if (Model.SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Date);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == long.Parse(User.Identity.Name)).OrderBy(i => i.Date);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == long.Parse(User.Identity.Name)).OrderBy(i => i.Date);
             }
             else
             {
                 if (Model.SortDesc)
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Test.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == long.Parse(User.Identity.Name)).OrderByDescending(i => i.Test.Name);
                 else
-                    Model.ListStatistics = _Statistics.List.Where(i => i.StudentId == long.Parse(User.Identity.Name)).OrderBy(i => i.Test.Name);
+                    Model.ListPassageData = _PassageData.List.Where(i => i.Full == true && i.StudentId == long.Parse(User.Identity.Name)).OrderBy(i => i.Test.Name);
             }
             return View("Index", Model);
         }
-        public IActionResult ViewResult(long StatisticsId)
+        public IActionResult ViewResult(long PassageDataId)
         {
             var Model = new StudentResultViewModel
             {
-                Statistics = _Statistics.List.FirstOrDefault(i => i.Id == StatisticsId)
+                PassageData = _PassageData.List.FirstOrDefault(i => i.Id == PassageDataId)
             };
-            if (Model.Statistics == null || Model.Statistics.StudentId != long.Parse(User.Identity.Name))
-                return RedirectToAction("Index", "Result");
-            Model.Statistics.ListResult = _Result.List.Where(i => i.StatisticsId == StatisticsId);
+            if (Model.PassageData == null || Model.PassageData.StudentId != long.Parse(User.Identity.Name))
+                return RedirectToAction("Index", "StudentResult");
+
+            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId);
+
             return View(Model);
         }
     }

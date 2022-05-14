@@ -13,13 +13,13 @@ namespace Psychology.Data.Repositories
             this.DB = DB;
         }
         public IEnumerable<Result> List => DB.Result.Include(i => i.Criteria);
-        public void Create(long StatisticsId, long CriteriaId, int Points)
+        public void Create(long PassageDataId, long CriteriaId, int Points)
         {
             DB.Result.Add
                 (
                 new Result
                 {
-                    StatisticsId = StatisticsId,
+                    PassageDataId = PassageDataId,
                     CriteriaId = CriteriaId,
                     Points = Points
                 }

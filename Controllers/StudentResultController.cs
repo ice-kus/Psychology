@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Psychology.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Student")]
     public class StudentResultController : Controller
     {
         private readonly IPassageDataRepository _PassageData;

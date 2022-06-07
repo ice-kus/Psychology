@@ -1,0 +1,24 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Добавление группы";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Добавление группы</h1>
+            </div>
+        </header>
+        <div><b>Наименование</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Group.Name" class="form-control" style="resize:none" maxlength="15" rows="1" placeholder="Введите наименование группы..." required></textarea>
+        </div>
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Добавить">
+        </div>
+
+    </article>
+</form>

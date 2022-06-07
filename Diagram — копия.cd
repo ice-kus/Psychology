@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Psychology.Controllers.AuthorizationController">
+    <Position X="1.25" Y="7.75" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAIAAAAAAAAAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\AuthorizationController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Lecturer" />
+      <Field Name="_Student" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Psychology.Controllers.LecturerResultController">
+    <Position X="1.25" Y="2.75" Width="5.5" />
+    <AssociationLine Name="_Criteria" Type="Psychology.Data.Interfaces.ICriteriaRepository" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.188" />
+        <Point X="8.167" Y="4.187" Type="JumpStart" />
+        <Point X="8.333" Y="4.188" Type="JumpEnd" />
+        <Point X="10" Y="4.188" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_PassageData" Type="Psychology.Data.Interfaces.IPassageDataRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.188" />
+        <Point X="7.125" Y="4.188" />
+        <Point X="7.125" Y="9.312" />
+        <Point X="8.167" Y="9.312" Type="JumpStart" />
+        <Point X="8.333" Y="9.312" Type="JumpEnd" />
+        <Point X="10" Y="9.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_PassageDataQuestion" Type="Psychology.Data.Interfaces.IPassageDataQuestionRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.188" />
+        <Point X="7.125" Y="4.188" />
+        <Point X="7.125" Y="5.438" />
+        <Point X="8.167" Y="5.437" Type="JumpStart" />
+        <Point X="8.333" Y="5.438" Type="JumpEnd" />
+        <Point X="10" Y="5.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_Result" Type="Psychology.Data.Interfaces.IResultRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.188" />
+        <Point X="7.125" Y="4.188" />
+        <Point X="7.125" Y="7.986" />
+        <Point X="8.167" Y="7.986" Type="JumpStart" />
+        <Point X="8.333" Y="7.986" Type="JumpEnd" />
+        <Point X="10" Y="7.986" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_Test" Type="Psychology.Data.Interfaces.ITestRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.188" />
+        <Point X="7.125" Y="4.188" />
+        <Point X="7.125" Y="6.687" />
+        <Point X="8.167" Y="6.687" Type="JumpStart" />
+        <Point X="8.333" Y="6.687" Type="JumpEnd" />
+        <Point X="10" Y="6.687" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAQAAAQAAAABABAAAAIAAAAAAAABQBEAAQAgAUI=</HashCode>
+      <FileName>Controllers\LecturerResultController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Criteria" />
+      <Field Name="_Group" />
+      <Field Name="_PassageData" />
+      <Field Name="_PassageDataQuestion" />
+      <Field Name="_Result" />
+      <Field Name="_Student" />
+      <Field Name="_Test" />
+      <Field Name="_TestQuestion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Psychology.Controllers.LecturerTestController">
+    <Position X="14.5" Y="2.25" Width="5" />
+    <AssociationLine Name="_Answer" Type="Psychology.Data.Interfaces.IAnswerRepository" FixedFromPoint="true">
+      <Path>
+        <Point X="15.875" Y="9.896" />
+        <Point X="15.875" Y="10.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>FAAAQAUIAAgEwAABQoICAAACAAAAYBADAYFAAAQkBEA=</HashCode>
+      <FileName>Controllers\LecturerTestController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Answer" />
+      <Field Name="_Criteria" />
+      <Field Name="_PassageData" />
+      <Field Name="_Question" />
+      <Field Name="_Test" />
+      <Field Name="_TestQuestion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Psychology.Controllers.StudentResultController">
+    <Position X="11.75" Y="11.25" Width="4.75" />
+    <AssociationLine Name="_PassageData" Type="Psychology.Data.Interfaces.IPassageDataRepository" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.812" Y="11.25" />
+        <Point X="12.812" Y="10.043" />
+        <Point X="11.563" Y="10.043" />
+        <Point X="11.563" Y="9.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.189" Y="0.151" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAEI=</HashCode>
+      <FileName>Controllers\StudentResultController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_PassageData" />
+      <Field Name="_Result" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Psychology.Controllers.StudentTestController">
+    <Position X="4.75" Y="10.75" Width="5.25" />
+    <AssociationLine Name="_Criteria" Type="Psychology.Data.Interfaces.ICriteriaRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.75" />
+        <Point X="8.25" Y="4.937" />
+        <Point X="10.312" Y="4.937" />
+        <Point X="10.312" Y="4.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_PassageData" Type="Psychology.Data.Interfaces.IPassageDataRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.688" Y="10.75" />
+        <Point X="9.688" Y="9.999" />
+        <Point X="11.042" Y="9.999" />
+        <Point X="11.042" Y="9.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_PassageDataQuestion" Type="Psychology.Data.Interfaces.IPassageDataQuestionRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.75" />
+        <Point X="8.25" Y="6.187" />
+        <Point X="10.188" Y="6.187" />
+        <Point X="10.188" Y="5.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_Result" Type="Psychology.Data.Interfaces.IResultRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.75" />
+        <Point X="8.25" Y="8.687" />
+        <Point X="10.312" Y="8.687" />
+        <Point X="10.312" Y="8.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_Test" Type="Psychology.Data.Interfaces.ITestRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.75" />
+        <Point X="8.25" Y="7.437" />
+        <Point X="10.312" Y="7.437" />
+        <Point X="10.312" Y="7.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_TestQuestion" Type="Psychology.Data.Interfaces.ITestQuestionRepository" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.75" />
+        <Point X="8.25" Y="3.687" />
+        <Point X="10.438" Y="3.687" />
+        <Point X="10.438" Y="3.312" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAABgQAAAAAAAAAAAAAAAAgAAAAAAABAEEAAAAgAEI=</HashCode>
+      <FileName>Controllers\StudentTestController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Criteria" />
+      <Field Name="_PassageData" />
+      <Field Name="_PassageDataQuestion" />
+      <Field Name="_Result" />
+      <Field Name="_Test" />
+      <Field Name="_TestQuestion" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="Psychology.Data.Interfaces.ICriteriaRepository" Collapsed="true">
+    <Position X="10" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ICriteriaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IPassageDataRepository" Collapsed="true">
+    <Position X="10" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IPassageDataRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IPassageDataQuestionRepository" Collapsed="true">
+    <Position X="10" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IPassageDataQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IResultRepository" Collapsed="true">
+    <Position X="10" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IResultRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.ITestRepository" Collapsed="true">
+    <Position X="10" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ITestRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.ITestQuestionRepository" Collapsed="true">
+    <Position X="10" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ITestQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IAnswerRepository" Collapsed="true">
+    <Position X="15" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IAnswerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IQuestionRepository" Collapsed="true">
+    <Position X="17.75" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.ILecturerRepository" Collapsed="true">
+    <Position X="3.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ILecturerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IStudentRepository" Collapsed="true">
+    <Position X="1.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IStudentRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Psychology.Data.Interfaces.IGroupRepository" Collapsed="true">
+    <Position X="1.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IGroupRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

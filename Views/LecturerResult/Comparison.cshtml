@@ -1,0 +1,164 @@
+﻿@using Psychology.ViewModels
+@model LecturerResultViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Сравнение результатов";
+}
+
+<style>
+    .square {
+        height: 20px;
+        width: 20px;
+    }
+</style>
+
+<form asp-action="Index" method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                @if (Model.ComparisonGroup)
+                {
+                    <h1>
+                        @Model.PassageData.Test.Name (@Model.PassageData.Student.Name)
+                    </h1>
+                    <h3>
+                        Сравнение результата от @Model.PassageData.Date.ToShortDateString() с результатом группы «@Model.ListGroup.First(i => i.Id == Model.GroupId).Name»
+                    </h3>
+                }
+                else
+                {
+                    <h1>
+                        @Model.PassageData.Test.Name (@Model.PassageData.Student.Name)
+                    </h1>
+                    <h3>
+                        Сравнение результатов от @Model.PassageData.Date.ToShortDateString() и от @Model.PassageDataComparison.Date.ToShortDateString()
+                    </h3>
+
+                }
+            </div>
+            @if (!Model.ComparisonGroup)
+            {
+                <div class="meta">
+                    <a target="_blank" asp-action="ComparisonDetailed" asp-route-PassageDataId="@Model.PassageData.Id" asp-route-PassageDataComparisonId="@Model.PassageDataComparisonId">Подробности прохождения</a>
+                </div>
+            }
+        </header>
+        <p><b>Процент совпадения: @Model.Percent</b></p>
+        <div id="sclrx" class="resScale">
+            <div class="nisBlock">
+                <table class="nisTable" border=0>
+                    @{
+                        for (int i = 0; i < Model.PassageData.ListResult.Count(); i++)
+                        {
+                            var Result = Model.PassageData.ListResult.ElementAt(i);
+                            var ResultComparison = Model.PassageDataComparison.ListResult.ElementAt(i);
+                            var WidthResult = 650 * Result.Points / Result.Criteria.ListNumQuestion.Count;
+                            var WidthResultComparison = 650 * ResultComparison.Points / ResultComparison.Criteria.ListNumQuestion.Count;
+                            <tr>
+                                <td class="nisName"><div>@Result.Criteria.Name</div></td>
+                                <td class="nisScale" width=650>
+                                    <div style="max-width: 650px;">
+                                        <svg width="100%" height=25 viewBox="0 0 650 25" preserveAspectRatio="none">
+                                            <defs>
+                                                <pattern id="pg" x=0 y=0 width=21 height=25 patternUnits="userSpaceOnUse">
+                                                    <rect x=0 y=0 width=20 height=25 stroke-width=0 fill="PaleTurquoise" />
+                                                </pattern>
+                                                <pattern id="pa" x=0 y=0 width=21 height=25 patternUnits="userSpaceOnUse">
+                                                    <rect x=0 y=0 width=20 height=25 stroke-width=0 fill="LightSeaGreen" />
+                                                </pattern>
+                                                <defs>
+                                                    <pattern id="ps" x=0 y=0 width=21 height=25 patternUnits="userSpaceOnUse">
+                                                        <rect x=0 y=0 width=20 height=25 stroke-width=0 fill="DarkBlue" />
+                                                    </pattern>
+                                                </defs>
+                                            </defs>
+
+                                            <rect x=0 y=0 width=650 height=25 stroke-width=0 fill="url(#pg)" />
+                                            <rect x=0 y=0 width=@WidthResult height=25 stroke-width=0 fill="url(#pa)" />
+                                        </svg>
+                                    </div><br />
+                                    <div style="max-width: 650px;">
+                                        <svg width="100%" height=25 viewBox="0 0 650 25" preserveAspectRatio="none">
+
+
+                                            <rect x=0 y=0 width=650 height=25 stroke-width=0 fill="url(#pg)" />
+                                            <rect x=0 y=0 width=@WidthResultComparison height=25 stroke-width=0 fill="url(#ps)" />
+                                        </svg>
+                                    </div>
+                                </td>
+                                <td class="nisVal">
+                                    <div>@Result.Points / @Result.Criteria.ListNumQuestion.Count</div><br />
+                                    <div>@ResultComparison.Points / @ResultComparison.Criteria.ListNumQuestion.Count</div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+        @if (!Model.ComparisonGroup)
+        {
+            <footer style="max-width: 600px; margin: 0 auto; margin-top: -10px">
+                <div class="square" style="background-color: lightseagreen;"></div> &nbsp; - результат от @Model.PassageData.Date.ToShortDateString()
+                <div class="square" style="background-color: DarkBlue; margin-left:20px"></div> &nbsp; - результат от @Model.PassageDataComparison.Date.ToShortDateString()
+            </footer>
+        }
+        else
+        {
+            <footer style="max-width: 600px; margin: 0 auto; margin-top: -10px">
+                <div class="square" style="background-color: lightseagreen;"></div> &nbsp; - результат от @Model.PassageData.Date.ToShortDateString()
+                <div class="square" style="background-color: DarkBlue; margin-left:20px"></div> &nbsp; - результат группы «@Model.ListGroup.First(i => i.Id == Model.GroupId).Name»
+            </footer>
+        }
+        <footer style="margin-top: 20px">
+            @if (Model.ComparisonGroup)
+            {
+                <select asp-for="GroupId" class="form-control" style="width: 15%;">
+                    @{
+                        foreach (var Group in Model.ListGroup)
+                        {
+                            if (Group.Id == Model.GroupId)
+                            {
+                                <option selected="selected" value="@Group.Id">@Group.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@Group.Id">@Group.Name</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+            else
+            {
+                <select asp-for="PassageDataComparisonId" class="form-control" style="width: 25%;">
+                    @{
+                        for (int i = 0; i < Model.ListPassageData.Count(); i++)
+                        {
+                            var PassageData = Model.ListPassageData[i];
+                            if (PassageData.Id == Model.PassageDataComparisonId)
+                            {
+                                <option selected="selected" value="@PassageData.Id">Прохождение от @PassageData.Date.ToShortDateString()</option>
+                            }
+                            else
+                            {
+                                <option value="@PassageData.Id">Прохождение от @PassageData.Date.ToShortDateString()</option>
+                            }
+                        }
+                    }
+                </select>
+            }
+            <div class="actions">
+                <input asp-action="Comparison" style="margin-left: 20px" class="button" type="submit" value="Сравнить">
+            </div>
+        </footer>
+
+
+        <input type="hidden" asp-for="PassageDataId" value="@Model.PassageDataId">
+        <input type="hidden" asp-for="ComparisonGroup" value="@Model.ComparisonGroup">
+    </article>
+</form>
+
+

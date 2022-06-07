@@ -1,0 +1,39 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Группы";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Группы</h1>
+            </div>
+            <div class="meta">
+                <a href="/Admin/AddGroup">Добавить группу</a>
+            </div>
+        </header>
+        <b>Список</b>
+        <table style="margin-bottom: -2px">
+            <tr><th>Наименование</th></tr>
+        </table>
+        <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+            <table>
+                <tr style="display:none">
+                </tr>
+                @{
+                    foreach (var Group in Model.ListGroup)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="Group" asp-route-Id="@Group.Id">@Group.Name</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </article>
+</form>

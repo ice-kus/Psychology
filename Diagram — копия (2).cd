@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PsychologyLecturer.Controllers.ResultController">
+    <Position X="1.25" Y="3.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAARAAEABABAQAAAAAAAAAAAAAAEAABAAAAI=</HashCode>
+      <FileName>Controllers\ResultController.cs</FileName>
+      <NewMemberFileName>Controllers\HomeController.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Result" />
+      <Field Name="_Statistics" />
+      <Field Name="_Group" />
+      <Field Name="_StatisticsQuestion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PsychologyLecturer.Controllers.TestController">
+    <Position X="5.5" Y="4" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAUAAABAAAABQAAAAAAAAAAAAAADAAVAAAAgAAA=</HashCode>
+      <FileName>Controllers\TestController.cs</FileName>
+      <NewMemberFileName>Controllers\HomeController.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_Test" />
+      <Field Name="_TestQuestion" />
+      <Field Name="_Question" />
+      <Field Name="_Answer" />
+      <Field Name="_Criteria" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IResultRepository" Collapsed="true">
+    <Position X="3.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IResultRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IStatisticsRepository" Collapsed="true">
+    <Position X="3.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IStatisticsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IStatisticsQuestionRepository" Collapsed="true">
+    <Position X="1.25" Y="6.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IStatisticsQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.ITestRepository" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ITestRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.ITestQuestionRepository" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ITestQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IGroupRepository" Collapsed="true">
+    <Position X="1.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IGroupRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IQuestionRepository" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IQuestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.IAnswerRepository" Collapsed="true">
+    <Position X="7.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\IAnswerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PsychologyLecturer.Data.Interfaces.ICriteriaRepository" Collapsed="true">
+    <Position X="4.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Data\Interfaces\ICriteriaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -12,5 +12,6 @@
         public string Processing { get; set; }     // text
         public bool Availability { get; set; }     // boolean
         public bool Mix { get; set; }              // boolean
+        public long LecturerId { get; set; }       // integer (FOREIGN KEY)
     }
 }

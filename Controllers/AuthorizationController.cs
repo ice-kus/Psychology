@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Psychology.Data.Interfaces;
 using System.Linq;
 
+
 namespace Psychology.Controllers
 {
     public class AuthorizationController : Controller
@@ -26,7 +27,7 @@ namespace Psychology.Controllers
         [HttpGet]
         public IActionResult Login(string TypeUser)
         {
-            var Model = new AuthorizationModel
+            var Model = new AuthorizationViewModel
             {
                 TypeUser = TypeUser
             };
@@ -34,7 +35,7 @@ namespace Psychology.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(AuthorizationModel Model)
+        public async Task<IActionResult> Login(AuthorizationViewModel Model)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +45,7 @@ namespace Psychology.Controllers
                         {
                             if (_Student.List.Any(u => u.Id.ToString() == Model.Login && u.Password == Model.Password))
                             {
-                                await Authenticate(Model.Login); // аутентификация
+                                await Authenticate(Model.Login, "Student"); // аутентификация
 
                                 return RedirectToAction("Index", "StudentTest");
                             }
@@ -52,9 +53,9 @@ namespace Psychology.Controllers
                         }
                     case "Преподаватель":
                         {
-                            if (_Lecturer.List.Any(u => u.Id.ToString() == Model.Login && u.Password == Model.Password))
+                            if (_Lecturer.List.Any(u => u.Login == Model.Login && u.Password == Model.Password))
                             {
-                                await Authenticate(Model.Login); // аутентификация
+                                await Authenticate(_Lecturer.List.First(u => u.Login == Model.Login).Id.ToString(), "Lecturer"); // аутентификация
 
                                 return RedirectToAction("Index", "LecturerTest");
                             }
@@ -62,7 +63,12 @@ namespace Psychology.Controllers
                         }
                     case "Администратор":
                         {
-
+                            var Lecturer = _Lecturer.List.First(u => u.Id == 1);
+                            if (Lecturer.Login == Model.Login && Lecturer.Password == Model.Password)
+                            {
+                                await Authenticate(Lecturer.Login, "Admin"); // аутентификация
+                                return RedirectToAction("Index", "Admin");
+                            }
                             break;
                         }
                 }
@@ -70,12 +76,13 @@ namespace Psychology.Controllers
             }
             return View(Model);
         }
-        private async Task Authenticate(string Login)
+        private async Task Authenticate(string Login, string Role)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, Login)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, Login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, Role)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

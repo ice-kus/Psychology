@@ -1,0 +1,60 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Группа";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Группа «@Model.Group.Name»</h1>
+            </div>
+            <div class="meta">
+                <a asp-action="AddStudent" asp-route-Id="@Model.Group.Id">Добавить студента</a>
+            </div>
+        </header>
+        <div><b>Наименование</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Group.Name" class="form-control" style="resize:none" maxlength="15" rows="1" placeholder="Введите наименование группы..." required></textarea>
+        </div>
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Сохранить изменения">
+        </div>
+
+        @if (Model.Delete)
+        {
+            <div class="actions" style="margin-top:20px">
+                <input asp-action="DeleteGroup" type="submit" value="Удалить">
+            </div>
+        }
+        else
+        {
+            <div style="margin-top:20px"><b>Студенты группы</b></div>
+            <table style="margin-bottom: -2px">
+                <tr><th style="width:20%">Номер зачётки</th><th>ФИО</th></tr>
+            </table>
+            <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+                <table>
+                    <tr style="display:none">
+                    </tr>
+                    @{
+                        foreach (var Student in Model.ListStudent)
+                        {
+                            <tr>
+                                <td style="width:20%">
+                                    <a asp-action="Student" asp-route-Id="@Student.Id">@Student.Id</a>
+                                </td>
+                                <td>
+                                    <a asp-action="Student" asp-route-Id="@Student.Id">@Student.Name</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+        <input type="hidden" asp-for="Group.Id" value="@Model.Group.Id">
+    </article>
+</form>

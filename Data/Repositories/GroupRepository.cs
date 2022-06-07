@@ -12,5 +12,38 @@ namespace Psychology.Data.Repositories
             this.DB = DB;
         }
         public IEnumerable<Group> List => DB.Group;
+
+        public void Create(string Name)
+        {
+            DB.Group.Add
+               (
+               new Group
+               {
+                   Name = Name
+               }
+               );
+        }
+
+        public void Delete(long Id)
+        {
+            DB.Group.Remove(DB.Group.Find(Id));
+        }
+
+        public void Save()
+        {
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.ChangeTracker.Clear();
+            }
+        }
+
+        public void Update(Group Group)
+        {
+            DB.Group.Update(Group);
+        }
     }
 }

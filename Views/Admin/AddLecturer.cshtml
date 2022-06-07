@@ -1,0 +1,31 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Добавление преподавателя";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Добавление преподавателя</h1>
+            </div>
+        </header>
+        <div><b>ФИО</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Lecturer.Name" class="form-control" style="resize:none" maxlength="150" rows="1" placeholder="Введите ФИО..." required></textarea>
+        </div>
+        <div><b>Логин</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Lecturer.Login" class="form-control" style="resize:none" maxlength="20" rows="1" placeholder="Введите логин..." required></textarea>
+        </div>
+        <div><b>Пароль</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Lecturer.Password" class="form-control" style="resize:none" maxlength="25" rows="1" placeholder="Введите пароль..." required></textarea>
+        </div>
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Добавить">
+        </div>
+    </article>
+</form>

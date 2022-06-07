@@ -13,7 +13,7 @@ namespace Psychology.Data.Repositories
             this.DB = DB;
         }
         public IEnumerable<Test> List => DB.Test;
-        public void Create(string Name, string Description, int Type, int Size, int Scale, string Instruction, string Processing, bool Availability, bool Mix)
+        public void Create(string Name, string Description, int Type, int Size, int Scale, string Instruction, string Processing, bool Availability, bool Mix, long LecturerId)
         {
             DB.Test.Add
                 (
@@ -27,7 +27,8 @@ namespace Psychology.Data.Repositories
                     Instruction = Instruction,
                     Processing = Processing,
                     Availability = Availability,
-                    Mix = Mix
+                    Mix = Mix,
+                    LecturerId = LecturerId
                 }
                 );
         }

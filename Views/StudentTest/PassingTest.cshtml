@@ -23,7 +23,7 @@
                 int i = 1;
                 foreach (var TQ in Model.ListTestQuestion)
                 {
-                    <input type="radio" name="NumAnswer" value="@i" checked="@false">
+                    <input type="radio" name="NumAnswer" value="@i" checked="@false" required>
                     @TQ.Answer.Text
                     <br />
                     i++;

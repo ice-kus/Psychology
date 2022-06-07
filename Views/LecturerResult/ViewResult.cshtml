@@ -50,13 +50,31 @@
                             i++;
                         }
                     }
-              
+
                 </table>
             </div>
         </div>
 
-        <h3>Обработка результата</h3>
+        <footer>
+            <select asp-for="ComparisonGroup" class="form-control" style="width: 30%">
+
+                <option selected="selected" value="@true">С результатами группы</option>
+
+                @if (Model.ComparisonGroup)
+                {
+                    <option value="@false">С предыдушими результатами</option>
+                }
+
+            </select>
+            <div class="actions">
+                <input asp-action="Comparison" style="margin-left: 20px" class="button" type="submit" value="Сравнить">
+            </div>
+        </footer>
+
+        <h3 style="margin-top: 20px">Обработка результата</h3>
         <textarea>@Model.PassageData.Test.Processing</textarea>
+
+        <input type="hidden" asp-for="PassageDataId" value="@Model.PassageData.Id">
     </article>
 </form>
 

@@ -15,6 +15,16 @@
                 <a asp-action="AddTest">Добавить тест</a>
             </div>
         </header>
+        <div><b>Поиск</b></div>
+        <footer>
+            <div class="text" style="min-width:50%">
+                <textarea id="find" class="form-control" style="resize:none" maxlength="150" rows="1" required>@Model.Message</textarea>
+            </div>
+            <div class="actions" style="margin-left: 2%; ">
+                <a onclick="find();" class="button">Найти</a>
+            </div>
+        </footer>
+
         <div><b>Сортировка</b></div>
         <footer>
             <select id="sortdate" class="form-control" style="width: 30%;" onchange="change();">
@@ -80,8 +90,17 @@
     function change() {
         var SortDesc = document.getElementById("sortdesc").value;
         var SortDate = document.getElementById("sortdate").value;
+        var Find = @Html.Raw(Json.Serialize(Model.Message));
+        window.location.href = "@Url.Action("ChangeListTest", "LecturerTest")?Find=" + Find + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate;
+    }
 
-        window.location.href = "@Url.Action("ChangeListTest", "LecturerTest")?SortDesc=" + SortDesc + "&SortDate=" + SortDate;
+    function find() {
+        var SortDesc = document.getElementById("sortdesc").value;
+        var SortDate = document.getElementById("sortdate").value;
+        var Find = document.getElementById("find").value;
+        if (Find == 'null')
+            Find = '';
+        window.location.href = "@Url.Action("ChangeListTest", "LecturerTest")?Find=" + Find + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate;
     }
 
 </script>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Psychology.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Student")]
     public class StudentTestController : Controller
     {
         private readonly ITestRepository _Test;
@@ -111,14 +111,14 @@ namespace Psychology.Controllers
             if (Model.NumQuestion < Model.TestSize)
                 return View(Model);
             else
-                return RedirectToAction("GetResult", new { StatisticsId = Model.PassageDataId, TestId = Model.TestId });
+                return RedirectToAction("GetResult", new { PassageDataId = Model.PassageDataId, TestId = Model.TestId });
         }
         // -- получение и сохранение результата --
-        public ActionResult GetResult (long StatisticsId, long TestId)
+        public ActionResult GetResult (long PassageDataId, long TestId)
         {
             var Test = _Test.List.First(i => i.Id == TestId);
             var ListCriteria = _Criteria.List.Where(i => i.TestId == TestId);
-            var LisPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == StatisticsId).ToList();
+            var LisPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageDataId).ToList();
             if (Test.Type == 1)
             {
                 foreach (var Criteria in ListCriteria)
@@ -126,7 +126,7 @@ namespace Psychology.Controllers
                     int Points = 0;
                     foreach (var NumQuestion in Criteria.ListNumQuestion)
                         Points += LisPassageDataQuestion.First(j => j.NumQuestion == NumQuestion).NumAnswer;
-                    _Result.Create(StatisticsId, Criteria.Id, Points);
+                    _Result.Create(PassageDataId, Criteria.Id, Points);
                 }
             }
             else
@@ -137,15 +137,15 @@ namespace Psychology.Controllers
                     for (int i = 0; i < Criteria.ListNumQuestion.Count; i++)
                         if (LisPassageDataQuestion.Any(j => j.NumQuestion == Criteria.ListNumQuestion[i] && j.NumAnswer == Criteria.ListNumAnswer[i]))
                             Points++;
-                    _Result.Create(StatisticsId, Criteria.Id, Points);
+                    _Result.Create(PassageDataId, Criteria.Id, Points);
                 }
 
             }
-            var PassageData = _PassageData.List.First(i => i.Id == StatisticsId);
+            var PassageData = _PassageData.List.First(i => i.Id == PassageDataId);
             PassageData.Full = true;
             _PassageData.Update(PassageData);
             _Result.Save();
-            return RedirectToAction("ViewResult", "Result", new { StatisticsId = StatisticsId });
+            return RedirectToAction("ViewResult", "StudentResult", new { PassageDataId = PassageDataId });
         }
     }
 }

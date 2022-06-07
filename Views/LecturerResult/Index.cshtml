@@ -1,4 +1,5 @@
 ﻿@using Psychology.ViewModels
+@using Newtonsoft.Json;
 @model LecturerListResultViewModel
 
 @{
@@ -12,18 +13,15 @@
                 <h1>Просмотр результатов</h1><p><b>(поиск по студенту)</b></p>
             </div>
             <div class="meta">
-                <a href="/LecturerResult/Recalculation">Перейти к перерасчету результатов</a>
+                <a href="/LecturerResult/SearchByTest">Перейти к поиску по тесту</a>
             </div>
         </header>
-        <ul class="actions">
-            <li><a asp-action="SearchByTest" class="button">Перейти к поиску по тесту</a></li>
-        </ul>
         <footer>
             <div style="width: 15%;"><b>Группа</b></div>
             <div style="width: 45%; margin-left: 20px;"><b>Студент</b></div>
         </footer>
         <footer>
-            <select class="form-control" style="width: 15%;" id="group" onchange="changegroup();">
+            <select class="form-control" style="width: 15%;" id="group" onchange="ChangeGroup();">
                 @{
                     foreach (var Group in Model.ListGroup)
                     {
@@ -38,7 +36,7 @@
                     }
                 }
             </select>
-            <select class="form-control" id="student" style="width: 45%; margin-left: 20px;" onchange="change();">
+            <select class="form-control" id="student" style="width: 45%; margin-left: 20px;" onchange="ChangeStudent();">
                 @{
                     foreach (var Student in Model.ListStudent)
                     {
@@ -56,7 +54,7 @@
         </footer>
         <div style="margin-top: 20px;"><b>Сортировка</b></div>
         <footer>
-            <select class="form-control" id="sortdate" style="width: 30%;" onchange="change();">
+            <select class="form-control" id="sortdate" style="width: 30%;" onchange="ChangeStudent();">
                 @if (Model.SortDate)
                 {
                     <option selected="selected" value="@true">По дате прохождения</option>
@@ -69,7 +67,7 @@
                 }
             </select>
 
-            <select class="form-control" id="sortdesc" style="width: 30%; margin-left: 20px" onchange="change();">
+            <select class="form-control" id="sortdesc" style="width: 30%; margin-left: 20px" onchange="ChangeStudent();">
                 @if (Model.SortDesc)
                 {
                     <option value="@false">По возрастанию</option>
@@ -87,7 +85,7 @@
             <tr><th>Тест</th><th style="width:25%">Дата прохождения</th></tr>
         </table>
         <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
-            <table>
+            <table id="table">
                 <tr style="display:none">
                 </tr>
                 @{
@@ -110,7 +108,7 @@
 
 
 <script>
-    function changegroup() {
+    function ChangeGroup() {
         var GroupId = document.getElementById("group").value;
         var StudentId = document.getElementById("student").value;
         var SortDesc = document.getElementById("sortdesc").value;
@@ -120,7 +118,7 @@
     }
 
 
-    function change() {
+    function ChangeStudent() {
         var GroupId = document.getElementById("group").value;
         var StudentId = document.getElementById("student").value;
         var SortDesc = document.getElementById("sortdesc").value;
@@ -128,4 +126,5 @@
 
         window.location.href = "@Url.Action("ChangeListInSearchByStudent", "LecturerResult")?GroupId=" + GroupId + "&StudentId=" + StudentId + "&SortDesc=" + SortDesc + "&SortDate=" + SortDate + "&ChangeGroup=" + false;
     }
+
 </script>

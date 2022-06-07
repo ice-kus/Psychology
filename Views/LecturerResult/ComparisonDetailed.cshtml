@@ -1,0 +1,44 @@
+﻿@using Psychology.ViewModels
+@model LecturerResultViewModel
+
+@{
+    Layout = "_Lecturer";
+    ViewData["Title"] = "Сравнение ответов";
+}
+<form asp-action="Index" method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>@Model.PassageData.Test.Name (@Model.PassageData.Student.Name) <br /> Сравнение ответов от @Model.PassageDataComparison.Date.ToShortDateString() и от @Model.PassageData.Date.ToShortDateString()</h1>
+            </div>
+        </header>
+        @for (int i = 0; i < Model.PassageData.ListPassageDataQuestion.Count(); i++)
+        {
+            var StatisticsQuestion = Model.PassageData.ListPassageDataQuestion.ElementAt(i);
+            var ComparisonStatisticsQuestion = Model.PassageDataComparison.ListPassageDataQuestion.ElementAt(i);
+            if (StatisticsQuestion.NumAnswer == ComparisonStatisticsQuestion.NumAnswer)
+            {
+                var TestQuestion = Model.ListTestQuestion.FirstOrDefault(i => i.NumQuestion == StatisticsQuestion.NumQuestion && i.NumAnswer == StatisticsQuestion.NumAnswer);
+                <p>
+                    <b>@TestQuestion.NumQuestion. @TestQuestion.Question.Text</b>
+                    <br />
+                    @TestQuestion.Answer.Text
+                    <br />
+                </p>
+            }
+            else
+            {
+                var TestQuestion = Model.ListTestQuestion.FirstOrDefault(i => i.NumQuestion == StatisticsQuestion.NumQuestion && i.NumAnswer == StatisticsQuestion.NumAnswer);
+                var ComparisonTestQuestion = Model.ListTestQuestion.FirstOrDefault(i => i.NumQuestion == ComparisonStatisticsQuestion.NumQuestion && i.NumAnswer == ComparisonStatisticsQuestion.NumAnswer);
+                <p>
+                    <b>@TestQuestion.NumQuestion. @TestQuestion.Question.Text</b>
+                    <br />
+                    @ComparisonTestQuestion.Answer.Text
+                    <br />
+                    <i style="color:brown">изменено на:</i> @TestQuestion.Answer.Text
+                </p>
+            }
+        }
+
+    </article>
+</form>

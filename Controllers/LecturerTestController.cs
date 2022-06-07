@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Psychology.Controllers
 {
+    [Authorize(Roles = "Lecturer")]
     public class LecturerTestController : Controller
     {
         private readonly ITestRepository _Test;
@@ -41,32 +43,41 @@ namespace Psychology.Controllers
             {
                 SortDesc = true,
                 SortDate = true,
-                ListTest = _Test.List.OrderByDescending(i => i.Id)
+                ListTest = _Test.List.OrderByDescending(i => i.Id),
+                Message = ""
             };
             return View(Model);
         }
         // -- сортировка списка тестов --
         [HttpGet]
-        public ViewResult ChangeListTest(bool SortDate, bool SortDesc)
+        public ViewResult ChangeListTest(string Find, bool SortDate, bool SortDesc)
         {
             var Model = new LecturerTestViewModel
             {
                 SortDate = SortDate,
-                SortDesc = SortDesc
+                SortDesc = SortDesc,
+                Message = Find
             };
+            if (String.IsNullOrEmpty(Find))
+            {
+                Model.ListTest = _Test.List;
+                Model.Message = "";
+            }
+            else
+                Model.ListTest = _Test.List.Where(i => i.Name.ToLower().Contains(Find.ToLower()));
             if (SortDate)
             {
                 if (SortDesc)
-                    Model.ListTest = _Test.List.OrderByDescending(i => i.Id);
+                    Model.ListTest = Model.ListTest.OrderByDescending(i => i.Id);
                 else
-                    Model.ListTest = _Test.List.OrderBy(i => i.Id);
+                    Model.ListTest = Model.ListTest.OrderBy(i => i.Id);
             }
             else
             {
                 if (SortDesc)
-                    Model.ListTest = _Test.List.OrderByDescending(i => i.Name);
+                    Model.ListTest = Model.ListTest.OrderByDescending(i => i.Name);
                 else
-                    Model.ListTest = _Test.List.OrderBy(i => i.Name);
+                    Model.ListTest = Model.ListTest.OrderBy(i => i.Name);
             }
             return View("Index", Model);
         }
@@ -509,7 +520,7 @@ namespace Psychology.Controllers
             // сохраняем данные
             if (!_Test.List.Any(i => i.Name == Name))
             {
-                _Test.Create(Name, Description, this.Type, this.Size, this.Scale, Instruction, Processing, true, Mix);
+                _Test.Create(Name, Description, this.Type, this.Size, this.Scale, Instruction, Processing, true, Mix, long.Parse(User.Identity.Name));
                 _Test.Save();
             }
             else

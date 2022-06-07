@@ -1,0 +1,58 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Студент";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Студент @Model.Student.Name</h1>
+            </div>
+            <div class="meta">
+                <a href="/Admin/AddStudent">Добавить студента</a>
+            </div>
+        </header>
+        <div><b>ФИО</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Student.Name" class="form-control" style="resize:none" maxlength="150" rows="1" placeholder="Введите ФИО..." required></textarea>
+        </div>
+        <div><b>Пароль</b></div>
+        <div class="text" style="min-width:100%">
+            <textarea asp-for="Student.Password" class="form-control" style="resize:none" maxlength="25" rows="1" placeholder="Введите пароль..." required></textarea>
+        </div>
+
+        <div><b>Группа</b></div>
+        <select asp-for="Student.GroupId" class="form-control" style="width: 15%;">
+            @{
+                foreach (var Group in Model.ListGroup)
+                {
+                    if (Group.Id == Model.Group.Id)
+                    {
+                        <option selected="selected" value="@Group.Id">@Group.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@Group.Id">@Group.Name</option>
+                    }
+                }
+            }
+        </select>
+
+        <div class="actions" style="margin-top:20px">
+            <input type="submit" value="Сохранить изменения">
+        </div>
+
+        @if (Model.Delete)
+        {
+            <div class="actions" style="margin-top:20px">
+                <input asp-action="DeleteStudent" type="submit" value="Удалить">
+            </div>
+        }
+
+
+        <input type="hidden" asp-for="Student.Id" value="@Model.Student.Id">
+    </article>
+</form>

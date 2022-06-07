@@ -1,0 +1,42 @@
+﻿@using Psychology.ViewModels
+@model AdminViewModel
+
+@{
+    Layout = "_Admin";
+    ViewData["Title"] = "Преподаватели";
+}
+<form method="post">
+    <article class="post">
+        <header>
+            <div class="title">
+                <h1>Преподаватели</h1>
+            </div>
+            <div class="meta">
+                <a href="/Admin/AddLecturer">Добавить преподавателя</a>
+            </div>
+        </header>
+        <b>Список</b>
+        <table style="margin-bottom: -2px">
+            <tr><th style="width:20%">Логин</th><th>ФИО</th></tr>
+        </table>
+        <div class="table-wrapper" style="overflow-x: auto; max-height: 500px; ">
+            <table>
+                <tr style="display:none">
+                </tr>
+                @{
+                    foreach (var Lecturer in Model.ListLecturer)
+                    {
+                        <tr>
+                            <td style="width:20%">
+                                <a asp-action="Lecturer" asp-route-Id="@Lecturer.Id">@Lecturer.Login</a>
+                            </td>
+                            <td>
+                                <a asp-action="Lecturer" asp-route-Id="@Lecturer.Id">@Lecturer.Name</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </article>
+</form>

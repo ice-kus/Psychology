@@ -3,9 +3,13 @@ using Psychology.Data.Interfaces;
 using Psychology.Data.Models;
 using Psychology.ViewModels;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using System;
 
 namespace Psychology.Controllers
 {
+    [Authorize(Roles = "Lecturer")]
     public class LecturerResultController : Controller
     {
         private readonly IPassageDataRepository _PassageData;
@@ -185,19 +189,105 @@ namespace Psychology.Controllers
             {
                 PassageData = _PassageData.List.First(i => i.Id == PassageDataId)
             };
+            if (_PassageData.List.Where(i => i.StudentId == Model.PassageData.StudentId && i.TestId == Model.PassageData.TestId).Count() > 1)
+                Model.ComparisonGroup = true;
             Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.CriteriaId);
             return View(Model);
         }
+        [HttpGet]
         public ViewResult ViewDetailedResult(long PassageDataId) 
         {
             var Model = new LecturerResultViewModel
             {
                 PassageData = _PassageData.List.First(i => i.Id == PassageDataId)
             };
-            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId);
             Model.PassageData.ListPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.NumQuestion);
             Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.PassageData.TestId).OrderBy(i => i.NumQuestion);
             return View(Model); 
+        }
+
+        [HttpPost]
+        public ActionResult Comparison (LecturerResultViewModel Model)
+        {
+            Model.PassageData = _PassageData.List.First(i => i.Id == Model.PassageDataId);
+            if (Model.ComparisonGroup)
+            {
+                var ListPassageData = _PassageData.List.Where(i => i.TestId == Model.PassageData.TestId).ToList();
+                Model.ListGroup = _Group.List.Where(i => ListPassageData.Any(j => j.TestId == Model.PassageData.TestId && j.Student.GroupId == i.Id));
+                if (Model.GroupId == 0)
+                {
+                    Model.GroupId = Model.PassageData.Student.GroupId;
+                }
+
+                var ListResult = _Result.List.Where(i => i.PassageDataId == Model.PassageDataId).OrderBy(i => i.CriteriaId).ToList();
+
+                Model.PassageDataComparison = new PassageData();
+                var NewListResult = new List<Result>();
+
+                var ListPassageDataId = _PassageData.List.Where(i => i.TestId == Model.PassageData.TestId && i.Student.GroupId == Model.GroupId).OrderBy(i => i.Date).Select(i => new { i.Id, i.StudentId }).Distinct().ToList();
+                foreach (var Result in ListResult)
+                {
+                    var NewResult = new Result();
+                    NewResult.Points = (int)_Result.List.Where(i => i.CriteriaId == Result.CriteriaId && ListPassageDataId.Any(j => j.Id == i.PassageDataId)).Select(i => i.Points).Average();
+                    NewResult.PassageDataId = 0;
+                    NewResult.CriteriaId = Result.CriteriaId;
+                    NewResult.Criteria = Result.Criteria;
+                    NewListResult.Add(NewResult);
+                }
+                Model.Percent = 0;
+                for (int i = 0; i < ListResult.Count(); i++)
+                    Model.Percent += 100 - (Math.Abs(ListResult.ElementAt(i).Points - NewListResult.ElementAt(i).Points) * 100 / _Criteria.List.First(c => c.Id == ListResult.ElementAt(i).CriteriaId).ListNumQuestion.Count());
+                Model.Percent /= ListResult.Count();
+                Model.Percent = Math.Round(Model.Percent, 2);
+
+                Model.PassageDataComparison.ListResult = NewListResult;
+                Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == Model.PassageDataId).OrderBy(i => i.CriteriaId);
+            }
+            else
+            {
+                Model.ListPassageData = _PassageData.List.Where(i => i.StudentId == Model.PassageData.StudentId && i.Id != Model.PassageData.Id).ToList();
+
+                if (Model.PassageDataComparisonId == 0)
+                {
+                    Model.PassageDataComparison = _PassageData.List.First(i => i.StudentId == Model.PassageData.StudentId && i.Id != Model.PassageData.Id);
+                    Model.PassageDataComparisonId = Model.PassageDataComparison.Id;
+                }
+                else
+                {
+                    Model.PassageDataComparison = _PassageData.List.First(i => i.Id == Model.PassageDataComparisonId);
+                }
+                Model.PassageDataComparison.ListResult = _Result.List.Where(i => i.PassageDataId == Model.PassageDataComparisonId).OrderBy(i => i.CriteriaId);
+                Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == Model.PassageDataId).OrderBy(i => i.CriteriaId).ToList();
+                Model.Percent = 0;
+                if (Model.PassageData.Test.Type == 1)
+                    for (int i = 0; i < Model.PassageData.ListResult.Count(); i++)
+                        Model.Percent += 100 - (Math.Abs(Model.PassageData.ListResult.ElementAt(i).Points - Model.PassageDataComparison.ListResult.ElementAt(i).Points) * 100 / _Criteria.List.First(c => c.Id == Model.PassageData.ListResult.ElementAt(i).CriteriaId).ListNumQuestion.Count() / Model.PassageData.Test.Scale);
+                else
+                    for (int i = 0; i < Model.PassageData.ListResult.Count(); i++)
+                        Model.Percent += 100 - (Math.Abs(Model.PassageData.ListResult.ElementAt(i).Points - Model.PassageDataComparison.ListResult.ElementAt(i).Points) * 100 / _Criteria.List.First(c => c.Id == Model.PassageData.ListResult.ElementAt(i).CriteriaId).ListNumQuestion.Count());
+                Model.Percent /= Model.PassageData.ListResult.Count();
+                Model.Percent = Math.Round(Model.Percent, 2);
+            }
+            return View(Model);
+        }
+        [HttpGet]
+        public ViewResult ComparisonDetailed(long PassageDataId, long PassageDataComparisonId)
+        {
+            if (PassageDataId < PassageDataComparisonId)
+            {
+                long Temp = PassageDataId;
+                PassageDataId = PassageDataComparisonId;
+                PassageDataComparisonId = Temp;
+            }
+            var Model = new LecturerResultViewModel
+            {
+                PassageData = _PassageData.List.First(i => i.Id == PassageDataId),
+                PassageDataComparison = _PassageData.List.First(i => i.Id == PassageDataComparisonId)
+            };
+            Model.PassageData.ListPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.NumQuestion);
+            Model.PassageDataComparison.ListPassageDataQuestion = _PassageDataQuestion.List.Where(i => i.PassageDataId == PassageDataComparisonId).OrderBy(i => i.NumQuestion);
+            Model.ListTestQuestion = _TestQuestion.List.Where(i => i.TestId == Model.PassageData.TestId).OrderBy(i => i.NumQuestion);
+            return View(Model);
         }
     }
 }

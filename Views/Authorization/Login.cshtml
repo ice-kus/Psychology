@@ -3,6 +3,7 @@
 
 @{
     Layout = "_Authorization";
+    ViewData["Title"] = "Авторизация";
 }
 
 <form asp-action="Login" asp-controller="Authorization" asp-anti-forgery="true">
@@ -14,16 +15,17 @@
         </header>
         <div class="validation" asp-validation-summary="ModelOnly"></div>
 
-            <p><b>Логин</b></p>
-                <input style="margin-top: -25px" type="text" asp-for="Login" />
-            <span asp-validation-for="Login" />
-            <p style="margin-top:20px"><b>Пароль</b></p>
-            <input style="margin-top: -25px"  asp-for="Password" />
-            <span asp-validation-for="Password" />
+        <p><b>Логин</b></p>
+        <input style="margin-top: -25px" id="login" type="text" asp-for="Login" />
+        <span asp-validation-for="Login" />
+        <p style="margin-top:20px"><b>Пароль</b></p>
+        <input style="margin-top: -25px" id="password" asp-for="Password" />
+        <span asp-validation-for="Password" />
 
-            <div class="actions">
-                <input style="margin-top: 20px" type="submit" value="Войти">
-            </div>
-            <input type="hidden" asp-for="TypeUser" value="@Model.TypeUser">
+        <div class="actions">
+            <input style="margin-top: 20px" type="submit" value="Войти">
+        </div>
+
+        <input type="hidden" asp-for="TypeUser" value="@Model.TypeUser">
     </article>
 </form>

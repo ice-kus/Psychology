@@ -29,7 +29,7 @@ namespace Psychology.Data.Repositories
             DB.Group.Remove(DB.Group.Find(Id));
         }
 
-        public void Save()
+        public bool Save()
         {
             try
             {
@@ -38,7 +38,9 @@ namespace Psychology.Data.Repositories
             catch
             {
                 DB.ChangeTracker.Clear();
+                return false;
             }
+            return true;
         }
 
         public void Update(Group Group)

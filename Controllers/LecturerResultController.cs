@@ -245,7 +245,7 @@ namespace Psychology.Controllers
             }
             else
             {
-                Model.ListPassageData = _PassageData.List.Where(i => i.StudentId == Model.PassageData.StudentId && i.Id != Model.PassageData.Id).ToList();
+                Model.ListPassageData = _PassageData.List.Where(i => i.StudentId == Model.PassageData.StudentId && i.Id != Model.PassageData.Id && i.TestId == Model.PassageData.TestId).ToList();
 
                 if (Model.PassageDataComparisonId == 0)
                 {

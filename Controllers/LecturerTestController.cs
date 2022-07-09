@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace Psychology.Controllers
 {
@@ -35,6 +36,10 @@ namespace Psychology.Controllers
             this._Answer = _Answer;
             this._Criteria = _Criteria;
             this._PassageData = _PassageData;
+        }
+        public ViewResult Info()
+        {
+            return View();
         }
         // -- список тестов --
         public ViewResult Index()
@@ -99,12 +104,8 @@ namespace Psychology.Controllers
             Model.Test.Description = Model.Test.Description.Trim();
             Model.Test.Instruction = Model.Test.Instruction.Trim();
             Model.Test.Processing = Model.Test.Processing.Trim();
-            try
-            {
-                _Test.Update(Model.Test);
-                _Test.Save();
-            }
-            catch (Exception)
+            _Test.Update(Model.Test);
+            if (!_Test.Save())
             {
                 Model.Message = "Тест с таким наименованием уже есть в базе";
                 return View(Model);
@@ -263,9 +264,9 @@ namespace Psychology.Controllers
             return View(Model);
         }
         // -- проверка файла на наличие разделов (блок характеристик теста, блок вопросов, блок критериев) --
-        public void ReadFile(string File)
+        public void ReadFile(IFormFile File)
         {
-            StreamReader SR = new StreamReader(File);
+            StreamReader SR = new StreamReader(File.OpenReadStream());
             string Line = "";
             // заполнение блока теста
             while (Line.Trim() != "#тест_начало" && !SR.EndOfStream)
@@ -340,14 +341,17 @@ namespace Psychology.Controllers
                 throw new Exception("Неккоректный размер теста!");
             Size = Int32.Parse(Temp);
             // проверка тега "#шкала:"
-            while (i < Line.Length && !Line[i].Contains("#шкала:"))
-                i++;
-            if (i == Line.Length)
-                throw new Exception("Нет тега \"#шкала:\" или нарушена структура шаблона!");
-            Temp = Line[i].Remove(0, 7).Trim();
-            if (!Temp.All(char.IsDigit))
-                throw new Exception("Неккоректная шкала теста!");
-            Scale = Int32.Parse(Temp);
+            if (Type != 2)
+            {
+                while (i < Line.Length && !Line[i].Contains("#шкала:"))
+                    i++;
+                if (i == Line.Length)
+                    throw new Exception("Нет тега \"#шкала:\" или нарушена структура шаблона!");
+                Temp = Line[i].Remove(0, 7).Trim();
+                if (!Temp.All(char.IsDigit))
+                    throw new Exception("Неккоректная шкала теста!");
+                Scale = Int32.Parse(Temp);
+            }
             // проверка тега "#перемешивание:"
             while (i < Line.Length && !Line[i].Contains("#перемешивание:"))
                 i++;
@@ -384,7 +388,7 @@ namespace Psychology.Controllers
             if (this.Size != Size)
                 throw new Exception("Неверно указан размер теста или не все вопросы были добавлены!");
             Size = 0;
-            if (Type != 1)
+            if (Type == 3)
                 for (int i = 0; i < Line.Length; i++)
                     if (Line[i].Contains("+в:"))
                     {
@@ -518,12 +522,8 @@ namespace Psychology.Controllers
                 i++;
             }
             // сохраняем данные
-            if (!_Test.List.Any(i => i.Name == Name))
-            {
-                _Test.Create(Name, Description, this.Type, this.Size, this.Scale, Instruction, Processing, true, Mix, long.Parse(User.Identity.Name));
-                _Test.Save();
-            }
-            else
+            _Test.Create(Name, Description, this.Type, this.Size, this.Scale, Instruction, Processing, true, Mix, long.Parse(User.Identity.Name));
+            if (!_Test.Save())
                 throw new Exception("Тест с таким наименованием был добавлен ранее!");
 
         }

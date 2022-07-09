@@ -411,3 +411,16 @@ C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcore
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Psychology.dll
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Psychology.pdb
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Psychology.genruntimeconfig.cache
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\AddGroup.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\AddLecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\AddStudent.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\Admin.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\Group.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\Lecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\ListLecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Admin\Student.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\LecturerResult\Comparison.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\LecturerResult\ComparisonDetailed.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\Shared\_Admin.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\win-x86\Razor\Views\LecturerTest\Info.cshtml.g.cs

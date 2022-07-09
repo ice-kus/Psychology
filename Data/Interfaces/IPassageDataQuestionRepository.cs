@@ -8,6 +8,6 @@ namespace Psychology.Data.Interfaces
         IEnumerable<PassageDataQuestion> List { get; }
         void Create(long PassageDataId, int NumQuestion, int NumAnswer);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

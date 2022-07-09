@@ -12,10 +12,6 @@
                 <h1>Администратор</h1>
             </div>
         </header>
-        <div><b>Логин</b></div>
-        <div class="text" style="min-width:100%">
-            <textarea asp-for="Lecturer.Login" class="form-control" style="resize:none" maxlength="20" rows="1" placeholder="Введите логин..." required></textarea>
-        </div>
         <div><b>Пароль</b></div>
         <div class="text" style="min-width:100%">
             <textarea asp-for="Lecturer.Password" class="form-control" style="resize:none" maxlength="25" rows="1" placeholder="Введите пароль..." required></textarea>
@@ -26,5 +22,6 @@
 
         <input type="hidden" asp-for="Lecturer.Id" value="@Model.Lecturer.Id">
         <input type="hidden" asp-for="Lecturer.Name" value="@Model.Lecturer.Name">
+        <input type="hidden" asp-for="Lecturer.Login" value="@Model.Lecturer.Login">
     </article>
 </form>

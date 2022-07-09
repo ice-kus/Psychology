@@ -12,6 +12,7 @@
                 <h1>Добавление преподавателя</h1>
             </div>
         </header>
+        <p style="color:crimson">@Model.Message</p>
         <div><b>ФИО</b></div>
         <div class="text" style="min-width:100%">
             <textarea asp-for="Lecturer.Name" class="form-control" style="resize:none" maxlength="150" rows="1" placeholder="Введите ФИО..." required></textarea>

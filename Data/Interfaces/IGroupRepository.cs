@@ -9,6 +9,6 @@ namespace Psychology.Data.Interfaces
         void Create(string Name);
         void Update(Group Group);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

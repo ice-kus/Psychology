@@ -9,6 +9,6 @@ namespace Psychology.Data.Interfaces
         void Create(string Name, long TestId, List<int> ListNumQuestion, List<int> ListNumAnswer);
         void Update(Criteria Criteria);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

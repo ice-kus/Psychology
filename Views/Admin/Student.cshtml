@@ -11,10 +11,8 @@
             <div class="title">
                 <h1>Студент @Model.Student.Name</h1>
             </div>
-            <div class="meta">
-                <a href="/Admin/AddStudent">Добавить студента</a>
-            </div>
         </header>
+        <p style="color:crimson">@Model.Message</p>
         <div><b>ФИО</b></div>
         <div class="text" style="min-width:100%">
             <textarea asp-for="Student.Name" class="form-control" style="resize:none" maxlength="150" rows="1" placeholder="Введите ФИО..." required></textarea>

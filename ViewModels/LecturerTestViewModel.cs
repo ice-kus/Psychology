@@ -9,7 +9,7 @@ namespace Psychology.ViewModels
         public Test Test { get; set; }
         public bool SortDate { get; set; }
         public bool SortDesc { get; set; }
-        public string Message { get; set; }
         public bool Delete { get; set; }
+        public string Message { get; set; }
     }
 }

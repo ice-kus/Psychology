@@ -27,7 +27,6 @@ C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\bin\Release\netcore
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\bin\Release\netcoreapp3.1\System.Collections.Immutable.dll
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\bin\Release\netcoreapp3.1\System.ComponentModel.Annotations.dll
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\bin\Release\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.csprojAssemblyReference.cache
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.AssemblyInfoInputs.cache
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.AssemblyInfo.cs
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.csproj.CoreCompileInputs.cache
@@ -72,3 +71,17 @@ C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcore
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.dll
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.pdb
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.genruntimeconfig.cache
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\AddGroup.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\AddLecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\AddStudent.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\Admin.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\Group.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\Lecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\ListLecturer.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Admin\Student.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\LecturerResult\Comparison.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\LecturerResult\ComparisonDetailed.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\Shared\_Admin.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Psychology.csprojAssemblyReference.cache
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Release\netcoreapp3.1\Razor\Views\LecturerTest\Info.cshtml.g.cs

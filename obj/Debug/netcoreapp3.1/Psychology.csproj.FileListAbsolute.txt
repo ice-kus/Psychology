@@ -143,7 +143,6 @@ C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreap
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Psychology.pdb
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Psychology.genruntimeconfig.cache
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Psychology.csprojAssemblyReference.cache
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\LecturerResult\Comparison.cshtml.g.cs
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\LecturerResult\ComparisonDetailed.cshtml.g.cs
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddGroup.cshtml.g.cs
@@ -156,3 +155,4 @@ C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreap
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Lecturer.cshtml.g.cs
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ListLecturer.cshtml.g.cs
 C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Admin.cshtml.g.cs
+C:\Users\mlaym\OneDrive\Документы\GitHub\Psychology\obj\Debug\netcoreapp3.1\Psychology.csprojAssemblyReference.cache

@@ -9,6 +9,6 @@ namespace Psychology.Data.Interfaces
         void Create(string Name, string Description, int Type, int Size, int Scale, string Instruction, string Processing, bool Availability, bool Mix, long LecturerId);
         void Update(Test Test);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

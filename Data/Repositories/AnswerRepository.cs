@@ -28,9 +28,16 @@ namespace Psychology.Data.Repositories
         }
         public void Delete(long Id)
         {
-            DB.Answer.Remove(DB.Answer.Find(Id));
+            try
+            {
+                DB.Answer.Remove(DB.Answer.Find(Id));
+            }
+            catch
+            {
+                DB.ChangeTracker.Clear();
+            }
         }
-        public void Save()
+        public bool Save()
         {
             try
             {
@@ -39,7 +46,9 @@ namespace Psychology.Data.Repositories
             catch
             {
                 DB.ChangeTracker.Clear();
+                return false;
             }
+            return true;
         }
     }
 }

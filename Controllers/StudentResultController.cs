@@ -57,7 +57,7 @@ namespace Psychology.Controllers
             if (Model.PassageData == null || Model.PassageData.StudentId != long.Parse(User.Identity.Name))
                 return RedirectToAction("Index", "StudentResult");
 
-            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId);
+            Model.PassageData.ListResult = _Result.List.Where(i => i.PassageDataId == PassageDataId).OrderBy(i => i.CriteriaId);
 
             return View(Model);
         }

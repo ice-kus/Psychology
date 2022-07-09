@@ -34,7 +34,7 @@ namespace Psychology.Data.Repositories
         {
             DB.Result.Remove(DB.Result.Find(Id));
         }
-        public void Save()
+        public bool Save()
         {
             try
             {
@@ -43,7 +43,9 @@ namespace Psychology.Data.Repositories
             catch
             {
                 DB.ChangeTracker.Clear();
+                return false;
             }
+            return true;
         }
     }
 }

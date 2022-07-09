@@ -29,9 +29,18 @@ namespace Psychology.Data.Repositories
         {
             DB.PassageDataQuestion.Remove(DB.PassageDataQuestion.Find(Id));
         }
-        public void Save()
+        public bool Save()
         {
-            DB.SaveChanges();
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.ChangeTracker.Clear();
+                return false;
+            }
+            return true;
         }
     }
 }

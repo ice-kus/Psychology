@@ -23,5 +23,20 @@ namespace Psychology.Data
         public DbSet<Test> Test { get; set; }
         public DbSet<TestQuestion> TestQuestion { get; set; }
         public DbSet<Lecturer> Lecturer { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+            base.OnModelCreating(modelBuilder);
+
+
+        }
     }
 }

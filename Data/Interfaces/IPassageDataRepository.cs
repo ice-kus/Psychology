@@ -10,6 +10,6 @@ namespace Psychology.Data.Interfaces
         void Create(long StudentId, long TestId, DateTime Date, bool Full);
         void Update(PassageData Statistics);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

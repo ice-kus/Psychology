@@ -13,5 +13,6 @@ namespace Psychology.ViewModels
         public Student Student { get; set; }
         public Lecturer Lecturer { get; set; }
         public bool Delete { get; set; }
+        public string Message { get; set; }
     }
 }

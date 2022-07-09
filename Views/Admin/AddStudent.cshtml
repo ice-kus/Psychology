@@ -12,6 +12,11 @@
                 <h1>Добавление студента</h1>
             </div>
         </header>
+        <p style="color:crimson">@Model.Message</p>
+        <div><b>Номер зачетной книжки</b></div>
+        <div class="text" style="min-width:100%">
+            <input type="number" min="10000000" max="99999999" asp-for="Student.Id" class="form-control" required>
+        </div>
         <div><b>ФИО</b></div>
         <div class="text" style="min-width:100%">
             <textarea asp-for="Student.Name" class="form-control" style="resize:none" maxlength="150" rows="1" placeholder="Введите ФИО..." required></textarea>

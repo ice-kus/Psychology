@@ -9,6 +9,6 @@ namespace Psychology.Data.Interfaces
         void Create(long PassageDataId, long CriteriaId, int Points);
         void Update(Result Result);
         void Delete(long Id);
-        void Save();
+        bool Save();
     }
 }

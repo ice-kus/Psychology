@@ -31,9 +31,18 @@ namespace Psychology.Data.Repositories
             DB.Lecturer.Remove(DB.Lecturer.Find(Id));
         }
 
-        public void Save()
+        public bool Save()
         {
-            DB.SaveChanges();
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.ChangeTracker.Clear();
+                return false;
+            }
+            return true;
         }
 
         public void Update(Lecturer Lecturer)

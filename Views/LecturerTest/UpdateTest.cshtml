@@ -56,13 +56,14 @@
             <input type="submit" value="Сохранить изменения">
         </div>
         @if (Model.Delete)
-         {
+        {
             <div class="actions" style="margin-top:20px">
                 <input asp-action="DeleteTest" type="submit" value="Удалить тест">
             </div>
-         }
+        }
 
         <input type="hidden" asp-for="Test.Id" value="@Model.Test.Id">
+        <input type="hidden" asp-for="Test.LecturerId" value="@Model.Test.LecturerId">
         <input type="hidden" asp-for="Test.Type" value="@Model.Test.Type">
         <input type="hidden" asp-for="Test.Size" value="@Model.Test.Size">
         <input type="hidden" asp-for="Test.Scale" value="@Model.Test.Scale">

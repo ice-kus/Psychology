@@ -13,12 +13,13 @@ namespace Psychology.Data.Repositories
         }
         public IEnumerable<Student> List => DB.Student;
 
-        public void Create(string Name, string Password, long GroupId)
+        public void Create(long Id, string Name, string Password, long GroupId)
         {
             DB.Student.Add
               (
               new Student
               {
+                  Id = Id,
                   Name = Name,
                   Password = Password,
                   GroupId = GroupId
@@ -31,9 +32,18 @@ namespace Psychology.Data.Repositories
             DB.Student.Remove(DB.Student.Find(Id));
         }
 
-        public void Save()
+        public bool Save()
         {
-            DB.SaveChanges();
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.ChangeTracker.Clear();
+                return false;
+            }
+            return true;
         }
 
         public void Update(Student Student)

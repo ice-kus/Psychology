@@ -3,6 +3,7 @@ using Psychology.ViewModels;
 using Psychology.Data.Interfaces;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Psychology.Controllers
 {
@@ -45,8 +46,16 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult Group(AdminViewModel Model)
         {
+            Model.Group.Name = Model.Group.Name.Trim();
             _Group.Update(Model.Group);
-            _Group.Save();
+            if (!_Group.Save())
+            {
+                Model.Message = "Группа с таким наименованием уже есть в базе";
+                Model.ListStudent = _Student.List.Where(i => i.GroupId == Model.Group.Id).OrderBy(i => i.Name);
+                if (Model.ListStudent.Count() == 0)
+                    Model.Delete = true;
+                return View(Model);
+            }
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -66,8 +75,13 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult AddGroup(AdminViewModel Model)
         {
+            Model.Group.Name = Model.Group.Name.Trim();
             _Group.Create(Model.Group.Name);
-            _Group.Save();
+            if (!_Group.Save())
+            {
+                Model.Message = "Группа с таким наименованием уже есть в базе";
+                return View(Model);
+            }
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -87,7 +101,11 @@ namespace Psychology.Controllers
         public ActionResult Student(AdminViewModel Model)
         {
             _Student.Update(Model.Student);
-            _Student.Save();
+            if (!_Student.Save())
+            {
+                Model.Message = "Студент с таким номером зачетной книжки уже есть в базе";
+                return View(Model);
+            }
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -110,9 +128,15 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult AddStudent(AdminViewModel Model)
         {
-            _Student.Create(Model.Student.Name, Model.Student.Password, Model.Group.Id);
-            _Student.Save();
-            return RedirectToAction("Index");
+            Model.Student.Name = Model.Student.Name.Trim();
+            Model.Student.Password = Model.Student.Password.Trim();
+            _Student.Create(Model.Student.Id, Model.Student.Name, Model.Student.Password, Model.Group.Id);
+            if (!_Student.Save())
+            {
+                Model.Message = "Студент с таким номером зачетной книжки уже есть в базе";
+                return View(Model);
+            }
+            return RedirectToAction("Group", new { Id = Model.Group.Id});
         }
         [HttpGet]
         public ViewResult ListLecturer()
@@ -137,8 +161,15 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult Lecturer(AdminViewModel Model)
         {
+            Model.Lecturer.Name = Model.Lecturer.Name.Trim();
+            Model.Lecturer.Login = Model.Lecturer.Login.Trim();
+            Model.Lecturer.Password = Model.Lecturer.Password.Trim();
             _Lecturer.Update(Model.Lecturer);
-            _Lecturer.Save();
+            if (!_Lecturer.Save())
+            {
+                Model.Message = "Преподаватель с таким логином уже есть в базе";
+                return View(Model);
+            }
             return RedirectToAction("ListLecturer");
         }
         [HttpPost]
@@ -160,8 +191,15 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult AddLecturer(AdminViewModel Model)
         {
+            Model.Lecturer.Name = Model.Lecturer.Name.Trim();
+            Model.Lecturer.Login = Model.Lecturer.Login.Trim();
+            Model.Lecturer.Password = Model.Lecturer.Password.Trim();
             _Lecturer.Create(Model.Lecturer.Name, Model.Lecturer.Login, Model.Lecturer.Password);
-            _Lecturer.Save();
+            if (!_Lecturer.Save())
+            {
+                Model.Message = "Преподаватель с таким логином уже есть в базе";
+                return View(Model);
+            }
             return RedirectToAction("ListLecturer");
         }
         [HttpGet]
@@ -176,6 +214,7 @@ namespace Psychology.Controllers
         [HttpPost]
         public ActionResult Admin(AdminViewModel Model)
         {
+            Model.Lecturer.Password = Model.Lecturer.Password.Trim();
             _Lecturer.Update(Model.Lecturer);
             _Lecturer.Save();
             return RedirectToAction("Index");
